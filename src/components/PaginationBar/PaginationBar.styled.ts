@@ -23,7 +23,7 @@ export const TemplateItem = styled.li`
 `;
 
 export const Button = styled.button`
-  min-width: 50px;
+  min-width: 30px;
   height: 40px;
   background-color: transparent;
   border-color: transparent;

@@ -1,5 +1,5 @@
 import { IProps } from './PaginationBar.types';
-import { getPageNumbers } from 'utils';
+import { getPageNumbers, getPaginationBarSettings } from 'utils';
 import { useSearchParams } from 'react-router-dom';
 import { SearchParamsKeys } from 'constants/searchParamsKeys';
 import { Button, Item, List, TemplateItem } from './PaginationBar.styled';
@@ -11,14 +11,21 @@ const PaginationBar = ({ todosQuantity, quantity, step = 1 }: IProps) => {
   const pageQuantity = Math.round(todosQuantity / quantity);
   const pageNumbers = getPageNumbers(pageQuantity);
   const currentPage = Number(searchParams.get(PAGE_SP_KEY) ?? 1);
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === pageNumbers.length;
-  const isBackNavBtnDisable = isFirstPage || currentPage > pageQuantity;
-  const isNextNavBtnDisable = isLastPage || currentPage > pageQuantity;
-  const isShowPrevTemplateBtn =
-    currentPage - step > 1 && currentPage <= pageQuantity;
-  const isShowNextTemplateBtn =
-    currentPage + step < pageNumbers.length && currentPage <= pageQuantity;
+  const {
+    firstPage,
+    lastPage,
+    isBackNavBtnDisable,
+    isNextNavBtnDisable,
+    isShowNextTemplateBtn,
+    isShowLastPageBtn,
+    isShowFirstPageBtn,
+    isShowPrevTemplateBtn,
+  } = getPaginationBarSettings({
+    pageNumbers,
+    currentPage,
+    pageQuantity,
+    step,
+  });
 
   const onPageBtnClick = (number: number): void => {
     searchParams.set(PAGE_SP_KEY, String(number));
@@ -37,6 +44,18 @@ const PaginationBar = ({ todosQuantity, quantity, step = 1 }: IProps) => {
           {'<<GoBack'}
         </Button>
       </Item>
+      {isShowFirstPageBtn && (
+        <Item>
+          <Button
+            onClick={() => {
+              onPageBtnClick(firstPage);
+            }}
+          >
+            {firstPage}
+          </Button>
+        </Item>
+      )}
+
       {isShowPrevTemplateBtn && (
         <TemplateItem>
           <Button disabled>...</Button>
@@ -58,6 +77,17 @@ const PaginationBar = ({ todosQuantity, quantity, step = 1 }: IProps) => {
         <TemplateItem>
           <Button disabled>...</Button>
         </TemplateItem>
+      )}
+      {isShowLastPageBtn && (
+        <Item>
+          <Button
+            onClick={() => {
+              onPageBtnClick(lastPage);
+            }}
+          >
+            {lastPage}
+          </Button>
+        </Item>
       )}
       <Item>
         <Button
