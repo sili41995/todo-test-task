@@ -21,3 +21,4 @@ export { default as getUserAvatar } from 'utils/getUserAvatar';
 export { default as updateSortSearchParams } from 'utils/updateSortSearchParams';
 export { default as getPageNumbers } from 'utils/getPageNumbers';
 export { default as setBtnDisplayProp } from 'utils/setBtnDisplayProp';
+export { default as getVisibleTodos } from 'utils/getVisibleTodos';

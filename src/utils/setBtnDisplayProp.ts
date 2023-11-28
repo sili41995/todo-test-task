@@ -1,6 +1,14 @@
-const setBtnDisplayProp = (currentPage: number, page: number) => {
+const setBtnDisplayProp = ({
+  currentPage,
+  page,
+  step,
+}: {
+  [key: string]: number;
+}) => {
   if (currentPage && page) {
-    return page - 2 > currentPage || page + 2 < currentPage ? 'none' : 'block';
+    return page - step > currentPage || page + step < currentPage
+      ? 'none'
+      : 'block';
   }
 };
 

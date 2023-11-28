@@ -4,11 +4,17 @@ import { selectTodos } from 'redux/todos/selectors';
 import { getPageNumbers } from 'utils';
 import { useSearchParams } from 'react-router-dom';
 import { SearchParamsKeys } from 'constants/searchParamsKeys';
-import { Button, TemplateButton, Item, List } from './PaginationBar.styled';
+import {
+  NavButton,
+  Button,
+  TemplateButton,
+  Item,
+  List,
+} from './PaginationBar.styled';
 
 const { PAGE_SP_KEY } = SearchParamsKeys;
 
-const PaginationBar = ({ quantity }: IProps) => {
+const PaginationBar = ({ quantity, step = 1 }: IProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const todosQuantity = useAppSelector(selectTodos).length;
   const pageQuantity = Math.round(todosQuantity / quantity);
@@ -25,16 +31,16 @@ const PaginationBar = ({ quantity }: IProps) => {
   return (
     <List>
       <Item>
-        <Button
+        <NavButton
           disabled={isFirstPage}
           onClick={() => {
             onPageBtnClick(currentPage - 1);
           }}
         >
           {'<<GoBack'}
-        </Button>
+        </NavButton>
       </Item>
-      {currentPage - 2 > 1 && (
+      {currentPage - step > 1 && (
         <Item>
           <TemplateButton>...</TemplateButton>
         </Item>
@@ -47,25 +53,26 @@ const PaginationBar = ({ quantity }: IProps) => {
             }}
             page={number}
             currentPage={currentPage}
+            step={step}
           >
             {number}
           </Button>
         </Item>
       ))}
-      {currentPage + 2 < pageNumbers.length && (
+      {currentPage + step < pageNumbers.length && (
         <Item>
           <TemplateButton>...</TemplateButton>
         </Item>
       )}
       <Item>
-        <Button
+        <NavButton
           disabled={isLastPage}
           onClick={() => {
             onPageBtnClick(currentPage + 1);
           }}
         >
           {'Next>>'}
-        </Button>
+        </NavButton>
       </Item>
     </List>
   );

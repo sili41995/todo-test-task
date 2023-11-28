@@ -9,8 +9,10 @@ export const List = styled.ul`
 export const Item = styled.li``;
 
 export const Button = styled.button`
-  display: ${({ currentPage, page }: IStyledProps) =>
-    setBtnDisplayProp(currentPage as number, page as number)};
+  display: ${({ currentPage, page, step }: IStyledProps) =>
+    setBtnDisplayProp({ currentPage, page, step })};
 `;
 
 export const TemplateButton = styled.button``;
+
+export const NavButton = styled.button``;
