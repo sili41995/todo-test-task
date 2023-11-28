@@ -7,6 +7,7 @@ import { useAppSelector } from 'hooks/redux';
 import { useSearchParams } from 'react-router-dom';
 import { selectTodos } from 'redux/todos/selectors';
 import { filterTodosByTitle, getVisibleTodos, sortTodosByTitle } from 'utils';
+import { Container } from './TodosContainer.styled';
 
 const { FILTER_SP_KEY, SORT_SP_KEY, PAGE_SP_KEY } = SearchParamsKeys;
 
@@ -29,14 +30,14 @@ const TodosContainer = ({ quantity, step }: IProps) => {
   });
 
   return (
-    <div>
+    <Container>
+      <TodosList visibleTodos={visibleTodos} />
       <PaginationBar
         quantity={quantity}
         step={step}
         todosQuantity={filteredTodos.length}
       />
-      <TodosList visibleTodos={visibleTodos} />
-    </div>
+    </Container>
   );
 };
 

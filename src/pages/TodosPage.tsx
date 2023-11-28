@@ -22,7 +22,7 @@ const TodosPage = () => {
   return (
     <>
       <UserProfile />
-      {isLoaded && <TodosContainer quantity={12} step={2} />}
+      {isLoaded && <TodosContainer quantity={8} step={2} />}
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

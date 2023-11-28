@@ -5,7 +5,7 @@ export interface IProps {
 }
 
 export interface IStyledProps {
-  currentPage: number;
-  page: number;
-  step: number;
+  currentPage?: number;
+  page?: number;
+  step?: number;
 }

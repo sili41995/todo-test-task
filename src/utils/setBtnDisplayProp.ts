@@ -3,10 +3,11 @@ const setBtnDisplayProp = ({
   page,
   step,
 }: {
-  [key: string]: number;
+  [key: string]: number | undefined;
 }) => {
   if (currentPage && page) {
-    return page - step > currentPage || page + step < currentPage
+    return page - Number(step) > currentPage ||
+      page + Number(step) < currentPage
       ? 'none'
       : 'block';
   }

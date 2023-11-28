@@ -2,13 +2,7 @@ import { IProps } from './PaginationBar.types';
 import { getPageNumbers } from 'utils';
 import { useSearchParams } from 'react-router-dom';
 import { SearchParamsKeys } from 'constants/searchParamsKeys';
-import {
-  NavButton,
-  Button,
-  TemplateButton,
-  Item,
-  List,
-} from './PaginationBar.styled';
+import { Button, Item, List, TemplateItem } from './PaginationBar.styled';
 
 const { PAGE_SP_KEY } = SearchParamsKeys;
 
@@ -19,61 +13,61 @@ const PaginationBar = ({ todosQuantity, quantity, step = 1 }: IProps) => {
   const currentPage = Number(searchParams.get(PAGE_SP_KEY) ?? 1);
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pageNumbers.length;
+  const isBackNavBtnDisable = isFirstPage || currentPage > pageQuantity;
+  const isNextNavBtnDisable = isLastPage || currentPage > pageQuantity;
+  const isShowPrevTemplateBtn =
+    currentPage - step > 1 && currentPage <= pageQuantity;
+  const isShowNextTemplateBtn =
+    currentPage + step < pageNumbers.length && currentPage <= pageQuantity;
 
   const onPageBtnClick = (number: number): void => {
     searchParams.set(PAGE_SP_KEY, String(number));
     setSearchParams(searchParams);
   };
 
-  const isBackNavBtnDisable = isFirstPage || currentPage > pageQuantity;
-  const isNextNavBtnDisable = isLastPage || currentPage > pageQuantity;
-
   return (
     <List>
       <Item>
-        <NavButton
+        <Button
           disabled={isBackNavBtnDisable}
           onClick={() => {
             onPageBtnClick(currentPage - 1);
           }}
         >
           {'<<GoBack'}
-        </NavButton>
+        </Button>
       </Item>
-      {currentPage - step > 1 && currentPage <= pageQuantity && (
-        <Item>
-          <TemplateButton>...</TemplateButton>
-        </Item>
+      {isShowPrevTemplateBtn && (
+        <TemplateItem>
+          <Button disabled>...</Button>
+        </TemplateItem>
       )}
       {pageNumbers.map((number) => (
-        <Item key={number}>
+        <Item key={number} page={number} currentPage={currentPage} step={step}>
           <Button
+            className={number === currentPage ? 'active' : ''}
             onClick={() => {
               onPageBtnClick(number);
             }}
-            page={number}
-            currentPage={currentPage}
-            step={step}
           >
             {number}
           </Button>
         </Item>
       ))}
-      {currentPage + step < pageNumbers.length &&
-        currentPage <= pageQuantity && (
-          <Item>
-            <TemplateButton>...</TemplateButton>
-          </Item>
-        )}
+      {isShowNextTemplateBtn && (
+        <TemplateItem>
+          <Button disabled>...</Button>
+        </TemplateItem>
+      )}
       <Item>
-        <NavButton
+        <Button
           disabled={isNextNavBtnDisable}
           onClick={() => {
             onPageBtnClick(currentPage + 1);
           }}
         >
           {'Next>>'}
-        </NavButton>
+        </Button>
       </Item>
     </List>
   );
