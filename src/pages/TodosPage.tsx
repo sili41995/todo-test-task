@@ -6,6 +6,7 @@ import Loader from 'components/Loader';
 import { selectIsLoaded } from 'redux/todos/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { fetchTodos } from 'redux/todos/operations';
+import PaginationBar from 'components/PaginationBar';
 
 const TodosPage = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,12 @@ const TodosPage = () => {
   return (
     <>
       <UserProfile />
-      {isLoaded && <TodosList />}
+      {isLoaded && (
+        <div>
+          <PaginationBar quantity={12} />
+          <TodosList />
+        </div>
+      )}
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

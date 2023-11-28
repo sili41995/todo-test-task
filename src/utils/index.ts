@@ -19,3 +19,4 @@ export { default as setInputHeight } from 'utils/setInputHeight';
 export { default as setInputMaxWidth } from 'utils/setInputMaxWidth';
 export { default as getUserAvatar } from 'utils/getUserAvatar';
 export { default as updateSortSearchParams } from 'utils/updateSortSearchParams';
+export { default as getPageNumbers } from 'utils/getPageNumbers';

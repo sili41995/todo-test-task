@@ -7,7 +7,7 @@ export const fetchTodos = createAsyncThunk<
   undefined,
   { rejectValue: string }
 >(
-  'Todos/fetchAll',
+  'todos/fetchAll',
   async (
     _,
     {
@@ -27,7 +27,7 @@ export const fetchTodos = createAsyncThunk<
 );
 
 export const addTodo = createAsyncThunk<ITodo, ITodo, { rejectValue: string }>(
-  'Todos/addTodo',
+  'todos/addTodo',
   async (todo: ITodo, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       const response = await todosServiceApi.addTodo(todo);
@@ -45,7 +45,7 @@ export const deleteTodo = createAsyncThunk<
   number,
   { rejectValue: string }
 >(
-  'Todos/deleteTodo',
+  'todos/deleteTodo',
   async (id: number, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       await todosServiceApi.deleteTodo(id);
@@ -63,7 +63,7 @@ export const updateTodo = createAsyncThunk<
   ITodo,
   { rejectValue: string }
 >(
-  'Todos/updateTodo',
+  'todos/updateTodo',
   async (data, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       await todosServiceApi.updateTodo(data);
