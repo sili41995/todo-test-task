@@ -14,6 +14,7 @@ export const Item = styled.li`
   }
   & a {
     padding: ${({ theme }) => theme.spacing(3)};
+    padding-right: ${({ theme }) => theme.spacing(10)};
     display: flex;
     gap: ${({ theme }) => theme.primaryGap}px;
     text-decoration: none;
@@ -28,13 +29,8 @@ export const Title = styled.p`
   font-family: Inter;
   font-size: ${({ theme }) => theme.fontSize.otherFontSize}px;
   font-weight: ${({ theme }) => theme.fontWeight.secondaryFontWeight};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
   &::first-letter {
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 `;
 
