@@ -1,6 +1,4 @@
 import { IProps } from './PaginationBar.types';
-import { useAppSelector } from 'hooks/redux';
-import { selectTodos } from 'redux/todos/selectors';
 import { getPageNumbers } from 'utils';
 import { useSearchParams } from 'react-router-dom';
 import { SearchParamsKeys } from 'constants/searchParamsKeys';
@@ -14,9 +12,8 @@ import {
 
 const { PAGE_SP_KEY } = SearchParamsKeys;
 
-const PaginationBar = ({ quantity, step = 1 }: IProps) => {
+const PaginationBar = ({ todosQuantity, quantity, step = 1 }: IProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const todosQuantity = useAppSelector(selectTodos).length;
   const pageQuantity = Math.round(todosQuantity / quantity);
   const pageNumbers = getPageNumbers(pageQuantity);
   const currentPage = Number(searchParams.get(PAGE_SP_KEY) ?? 1);
@@ -28,11 +25,14 @@ const PaginationBar = ({ quantity, step = 1 }: IProps) => {
     setSearchParams(searchParams);
   };
 
+  const isBackNavBtnDisable = isFirstPage || currentPage > pageQuantity;
+  const isNextNavBtnDisable = isLastPage || currentPage > pageQuantity;
+
   return (
     <List>
       <Item>
         <NavButton
-          disabled={isFirstPage}
+          disabled={isBackNavBtnDisable}
           onClick={() => {
             onPageBtnClick(currentPage - 1);
           }}
@@ -40,7 +40,7 @@ const PaginationBar = ({ quantity, step = 1 }: IProps) => {
           {'<<GoBack'}
         </NavButton>
       </Item>
-      {currentPage - step > 1 && (
+      {currentPage - step > 1 && currentPage <= pageQuantity && (
         <Item>
           <TemplateButton>...</TemplateButton>
         </Item>
@@ -59,14 +59,15 @@ const PaginationBar = ({ quantity, step = 1 }: IProps) => {
           </Button>
         </Item>
       ))}
-      {currentPage + step < pageNumbers.length && (
-        <Item>
-          <TemplateButton>...</TemplateButton>
-        </Item>
-      )}
+      {currentPage + step < pageNumbers.length &&
+        currentPage <= pageQuantity && (
+          <Item>
+            <TemplateButton>...</TemplateButton>
+          </Item>
+        )}
       <Item>
         <NavButton
-          disabled={isLastPage}
+          disabled={isNextNavBtnDisable}
           onClick={() => {
             onPageBtnClick(currentPage + 1);
           }}

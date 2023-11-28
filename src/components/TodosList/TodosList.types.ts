@@ -1,3 +1,5 @@
+import { ITodo } from 'types/types';
+
 export interface IProps {
-  quantity: number;
+  visibleTodos: ITodo[];
 }

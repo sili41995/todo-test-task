@@ -1,6 +1,7 @@
 export interface IProps {
   quantity: number;
   step?: number;
+  todosQuantity: number;
 }
 
 export interface IStyledProps {
