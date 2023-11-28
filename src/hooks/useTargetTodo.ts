@@ -4,12 +4,12 @@ import { selectTodos } from 'redux/todos/selectors';
 import { useAppSelector } from './redux';
 import { ITodo } from 'types/types';
 
-const useTargetTodo = (): ITodo | {} => {
+const useTargetTodo = (): ITodo | undefined => {
   const id = useParams()[PagesPath.dynamicParam];
   const Todos: ITodo[] = useAppSelector(selectTodos);
   const targetTodo = Todos.find(({ id: todoId }) => String(todoId) === id);
 
-  return targetTodo ? targetTodo : {};
+  return targetTodo && targetTodo;
 };
 
 export default useTargetTodo;

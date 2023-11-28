@@ -1,87 +1,87 @@
-// import { MdEmail } from 'react-icons/md';
-// import {
-//   AiFillLock,
-//   AiOutlineEye,
-//   AiOutlineEyeInvisible,
-// } from 'react-icons/ai';
-// import { useEffect, useState } from 'react';
-// import { SubmitHandler, useForm } from 'react-hook-form';
-// import 'react-toastify/dist/ReactToastify.css';
-import { Message, Title } from './LoginForm.styled';
-// import defaultAvatar from '../default-signin-avatar.png';
-// import { toasts } from 'utils';
-// import AuthFormMessage from 'components/AuthFormMessage';
-// import Input from 'components/Input';
+import { MdEmail } from 'react-icons/md';
+import {
+  AiFillLock,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from 'react-icons/ai';
+import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import 'react-toastify/dist/ReactToastify.css';
+import { Message, Title, Image, Form, Button } from './LoginForm.styled';
+import defaultAvatar from 'images/default-signin-avatar.png';
+import { toasts } from 'utils';
+import Input from 'components/Input';
 // import { selectIsLoading } from 'redux/auth/selectors';
 // import { loginUser } from 'redux/auth/operations';
-// import { useAppDispatch, useAppSelector } from 'hooks/redux';
-// import { ICredentials } from 'types/types';
-// import { PagesPath } from 'constants/pagesPath';
-// import { FormType } from 'constants/formType';
-// import { IconBtnType } from 'constants/iconBtnType';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { ICredentials } from 'types/types';
+import { PagesPath } from 'constants/pagesPath';
+import { FormType } from 'constants/formType';
+import { IconBtnType } from 'constants/iconBtnType';
+import AuthFormMessage from 'components/AuthFormMessage';
 
 const LoginForm = () => {
-  // const [credentials, setCredentials] = useState<ICredentials | null>(null);
-  // const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [credentials, setCredentials] = useState<ICredentials | null>(null);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   // const isLoading = useAppSelector(selectIsLoading);
-  // const dispatch = useAppDispatch();
-  // const {
-  //   register,
-  //   formState: { errors, isSubmitting },
-  //   handleSubmit,
-  //   watch,
-  // } = useForm<ICredentials>();
-  // const watchPassword = watch('password');
-  // const pageLink = `/${PagesPath.registerPath}`;
+  const dispatch = useAppDispatch();
+  const {
+    register,
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    watch,
+  } = useForm<ICredentials>();
+  const watchPassword = watch('password');
+  const pageLink = `/${PagesPath.registerPath}`;
 
-  // const toggleIsShowPassword = () => {
-  //   setIsShowPassword((prevState) => !prevState);
-  // };
+  const toggleIsShowPassword = () => {
+    setIsShowPassword((prevState) => !prevState);
+  };
 
-  // useEffect(() => {
-  //   if (credentials) {
-  //     const promise = dispatch(loginUser(credentials));
-  //     promise
-  //       .unwrap()
-  //       .then(() => {
-  //         toasts.successToast('Hello, my friend!');
-  //       })
-  //       .catch((error) => {
-  //         toasts.errorToast(error);
-  //       });
+  useEffect(() => {
+    if (credentials) {
+      const promise = dispatch(loginUser(credentials));
+      promise
+        .unwrap()
+        .then(() => {
+          toasts.successToast('Hello, my friend!');
+        })
+        .catch((error) => {
+          toasts.errorToast(error);
+        });
 
-  //     return () => {
-  //       promise.abort();
-  //     };
-  //   }
-  // }, [credentials, dispatch]);
+      return () => {
+        promise.abort();
+      };
+    }
+  }, [credentials, dispatch]);
 
-  // useEffect(() => {
-  //   if (isSubmitting) {
-  //     errors.email && toasts.errorToast('Email is required');
-  //     errors.password &&
-  //       toasts.errorToast(
-  //         errors.password.type === 'required'
-  //           ? 'Password is required'
-  //           : 'Password minimum length is 7 characters'
-  //       );
-  //   }
-  // }, [isSubmitting, errors]);
+  useEffect(() => {
+    if (isSubmitting) {
+      errors.email && toasts.errorToast('Email is required');
+      errors.password &&
+        toasts.errorToast(
+          errors.password.type === 'required'
+            ? 'Password is required'
+            : 'Password minimum length is 7 characters'
+        );
+    }
+  }, [isSubmitting, errors]);
 
-  // const onSubmit: SubmitHandler<ICredentials> = (data) => {
-  //   setCredentials(data);
-  // };
+  const onSubmit: SubmitHandler<ICredentials> = (data) => {
+    setCredentials(data);
+  };
 
   return (
     <>
       <Title>log in</Title>
       <Message>Welcome to Phonebook!</Message>
-      {/* <Image src={defaultAvatar} alt="user avatar" />
+      <Image src={defaultAvatar} alt='user avatar' />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           settings={{ ...register('email', { required: true }) }}
-          type="email"
-          placeholder="Email"
+          type='email'
+          placeholder='Email'
           inputType={FormType.authForm}
           autoFocus
           inputWrap
@@ -93,7 +93,7 @@ const LoginForm = () => {
             ...register('password', { required: true, minLength: 7 }),
           }}
           type={isShowPassword ? 'text' : 'password'}
-          placeholder="Password"
+          placeholder='Password'
           inputType={FormType.authForm}
           children={
             watchPassword &&
@@ -110,10 +110,13 @@ const LoginForm = () => {
           pageLink={pageLink}
           message={"if you don't have an account yet"}
         />
-        <Button disabled={isLoading} type="submit">
+        <Button
+          // disabled={isLoading}
+          type='submit'
+        >
           Log in
         </Button>
-      </Form> */}
+      </Form>
     </>
   );
 };
