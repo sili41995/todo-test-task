@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { GiCheckMark } from 'react-icons/gi';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +16,7 @@ import { ITodo } from 'types/types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { PagesPath } from 'constants/pagesPath';
 import TodoModalForm from 'components/TodoModalForm';
+import GoBackLink from 'components/GoBackLink';
 
 const AddTodoForm = () => {
   const isLoading = useAppSelector(selectIsLoading);
@@ -71,7 +72,7 @@ const AddTodoForm = () => {
           >
             <GiCheckMark />
           </IconButton>
-          <Link to={goBackLink}>Cancel</Link>
+          <GoBackLink path={goBackLink} />
         </Buttons>
       </Form>
     </TodoModalForm>

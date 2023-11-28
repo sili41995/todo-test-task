@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { GoX } from 'react-icons/go';
 import { GiCheckMark } from 'react-icons/gi';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,8 +18,10 @@ import { BtnType } from 'constants/btnType';
 import { PagesPath } from 'constants/pagesPath';
 import { IconBtnType } from 'constants/iconBtnType';
 import TodoModalForm from 'components/TodoModalForm';
+import { IProps } from './EditForm.types';
+import GoBackLink from 'components/GoBackLink';
 
-const EditForm = () => {
+const EditForm = ({ goBackLink }: IProps) => {
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const id = useParams()[PagesPath.dynamicParam];
@@ -97,14 +98,7 @@ const EditForm = () => {
           >
             <GiCheckMark />
           </IconButton>
-          <IconButton
-            btnType={IconBtnType.cancel}
-            width={44}
-            height={35}
-            // onBtnClick={onCancelBtnClick}
-          >
-            <GoX />
-          </IconButton>
+          <GoBackLink path={goBackLink} />
         </Buttons>
       </Form>
     </TodoModalForm>

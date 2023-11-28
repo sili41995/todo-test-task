@@ -4,7 +4,7 @@ export enum PagesPath {
   aboutPath = 'about',
   registerPath = 'register',
   loginPath = 'login',
-  addNewTodoPath = 'todos/new-Todo',
+  addNewTodoPath = 'todos/new-todo',
   TodoPath = 'todo',
   newTodoPath = 'new-todo',
   dynamicParam = 'id',

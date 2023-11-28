@@ -17,7 +17,6 @@ export const fetchTodos = createAsyncThunk<
   ) => {
     try {
       const Todos = await todosServiceApi.fetchTodos(signal);
-      console.log(Todos);
       return Todos;
     } catch (error) {
       if (error instanceof Error) {
@@ -31,9 +30,7 @@ export const addTodo = createAsyncThunk<ITodo, ITodo, { rejectValue: string }>(
   'Todos/addTodo',
   async (todo: ITodo, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
-      console.log('data', todo);
       const response = await todosServiceApi.addTodo(todo);
-      console.log('response', response);
       return { ...response, ...todo };
     } catch (error) {
       if (error instanceof Error) {
@@ -70,7 +67,6 @@ export const updateTodo = createAsyncThunk<
   async (data, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       await todosServiceApi.updateTodo(data);
-      console.log(data);
       return data;
     } catch (error) {
       if (error instanceof Error) {
