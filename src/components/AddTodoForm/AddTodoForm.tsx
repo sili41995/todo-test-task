@@ -6,8 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import IconButton from 'components/IconButton';
 import Input from 'components/Input';
 import { Buttons, Form, Title } from './AddTodoForm.styled';
-import { toasts } from 'utils';
-import { selectIsLoading } from 'redux/todos/selectors';
+import { getIsTodo, toasts } from 'utils';
+import { selectIsLoading, selectTodos } from 'redux/todos/selectors';
 import { addTodo } from 'redux/todos/operations';
 import { IconBtnType } from 'constants/iconBtnType';
 import { BtnType } from 'constants/btnType';
@@ -17,6 +17,7 @@ import TodoModalForm from 'components/TodoModalForm';
 import GoBackLink from 'components/GoBackLink';
 
 const AddTodoForm: FC = () => {
+  const todos = useAppSelector(selectTodos);
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const {
@@ -29,8 +30,8 @@ const AddTodoForm: FC = () => {
   useEffect(() => {
     errors.title && toasts.errorToast('Title is required');
   }, [errors, isSubmitting]);
-
   const handleFormSubmit: SubmitHandler<ITodo> = (data) => {
+    if (getIsTodo({ todos, newTodo: data })) return;
     const todo = { ...data, completed: false, userId: 10 };
     dispatch(addTodo(todo))
       .unwrap()

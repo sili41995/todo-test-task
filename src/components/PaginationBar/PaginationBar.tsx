@@ -21,10 +21,10 @@ const PaginationBar: FC<IProps> = ({ todosQuantity, quantity, step = 1 }) => {
     isShowLastPageBtn,
     isShowFirstPageBtn,
     isShowPrevTemplateBtn,
+    isValidPage,
   } = getPaginationBarSettings({
     pageNumbers,
     currentPage,
-    pageQuantity,
     step,
   });
 
@@ -61,18 +61,24 @@ const PaginationBar: FC<IProps> = ({ todosQuantity, quantity, step = 1 }) => {
           <Button disabled>...</Button>
         </TemplateItem>
       )}
-      {pageNumbers.map((number) => (
-        <Item key={number} page={number} currentPage={currentPage} step={step}>
-          <Button
-            className={number === currentPage ? 'active' : ''}
-            onClick={() => {
-              onPageBtnClick(number);
-            }}
+      {isValidPage &&
+        pageNumbers.map((number) => (
+          <Item
+            key={number}
+            page={number}
+            currentPage={currentPage}
+            step={step}
           >
-            {number}
-          </Button>
-        </Item>
-      ))}
+            <Button
+              className={number === currentPage ? 'active' : ''}
+              onClick={() => {
+                onPageBtnClick(number);
+              }}
+            >
+              {number}
+            </Button>
+          </Item>
+        ))}
       {isShowNextTemplateBtn && (
         <TemplateItem>
           <Button disabled>...</Button>

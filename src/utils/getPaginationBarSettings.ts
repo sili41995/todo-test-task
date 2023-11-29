@@ -1,32 +1,30 @@
 interface IFuncProps {
   pageNumbers: number[];
   currentPage: number;
-  pageQuantity: number;
   step: number;
 }
 
 const getPaginationBarSettings = ({
   pageNumbers,
   currentPage,
-  pageQuantity,
   step,
 }: IFuncProps) => {
   const firstPage = pageNumbers[0];
   const lastPage = pageNumbers[pageNumbers.length - 1];
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === pageNumbers.length;
-  const isBackNavBtnDisable = isFirstPage || currentPage > pageQuantity;
-  const isNextNavBtnDisable = isLastPage || currentPage > pageQuantity;
+  const isFirstPage = currentPage === firstPage;
+  const isLastPage = currentPage === lastPage;
+  const isValidPage = currentPage >= firstPage && currentPage <= lastPage;
+  const isBackNavBtnDisable = !isValidPage || isFirstPage;
+  const isNextNavBtnDisable = !isValidPage || isLastPage;
   const isShowPrevTemplateBtn =
-    currentPage - step - 1 > 1 && currentPage <= pageQuantity;
+    isValidPage && currentPage - step - 1 > firstPage;
   const isShowNextTemplateBtn =
-    currentPage + step + 1 < pageNumbers.length && currentPage <= pageQuantity;
-  const isShowFirstPageBtn =
-    currentPage - step > 1 && currentPage <= pageQuantity;
-  const isShowLastPageBtn =
-    currentPage + step < pageNumbers.length && currentPage <= pageQuantity;
+    isValidPage && currentPage + step + 1 < lastPage;
+  const isShowFirstPageBtn = isValidPage && currentPage - step > firstPage;
+  const isShowLastPageBtn = isValidPage && currentPage + step < lastPage;
 
   return {
+    isValidPage,
     firstPage,
     lastPage,
     isBackNavBtnDisable,

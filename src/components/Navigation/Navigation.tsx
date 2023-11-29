@@ -1,13 +1,14 @@
 import { FC } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { List, ListItem, NavContainer } from './Navigation.styled';
 import PublicLinks from 'components/PublicLinks';
 import { PagesPath } from 'constants/pagesPath';
-import { isTodosPage } from 'utils';
 import PrivateLinks from 'components/PrivateLinks';
+import { useAppSelector } from 'hooks/redux';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
 
 const Navigation: FC = () => {
-  const { pathname } = useLocation();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const TodosPagePath = `/${PagesPath.todosPath}`;
   const aboutPagePath = `/${PagesPath.aboutPath}`;
 
@@ -21,7 +22,7 @@ const Navigation: FC = () => {
           <NavLink to={aboutPagePath}>About</NavLink>
         </ListItem>
       </List>
-      {isTodosPage(pathname) ? <PrivateLinks /> : <PublicLinks />}
+      {isLoggedIn ? <PrivateLinks /> : <PublicLinks />}
     </NavContainer>
   );
 };

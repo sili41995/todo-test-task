@@ -31,7 +31,7 @@ const TodosContainer: FC<IProps> = ({ quantity, step }) => {
 
   return (
     <Container>
-      <TodosList visibleTodos={visibleTodos} />
+      <TodosList visibleTodos={visibleTodos} currentPage={currentPage} />
       <PaginationBar
         quantity={quantity}
         step={step}

@@ -4,10 +4,13 @@ import DefaultMessage from 'components/DefaultMessage';
 import { Container, List } from './TodosList.styled';
 import { IProps } from './TodosList.types';
 
-const TodosList: FC<IProps> = ({ visibleTodos }) => {
+const TodosList: FC<IProps> = ({ visibleTodos, currentPage }) => {
+  const isValidPage = currentPage > 0;
+  const isShouldRenderList = isValidPage && Boolean(visibleTodos.length);
+
   return (
     <Container>
-      {!!visibleTodos.length ? (
+      {isShouldRenderList ? (
         <List>
           {visibleTodos.map((todo) => (
             <TodosListItem todo={todo} key={todo.id} />

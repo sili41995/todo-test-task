@@ -17,9 +17,10 @@ import { logout } from 'redux/auth/authSlice';
 const PrivateLinks: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const location = useLocation();
-  const path = `/${PagesPath.addNewTodoPath}`;
+  const { pathname } = useLocation();
   const todos = useAppSelector(selectTodos);
+  const path = `/${PagesPath.addNewTodoPath}`;
+  const isShouldRenderFilter = isTodosPage(pathname) && Boolean(todos.length);
 
   const onLogoutBtnClick = () => {
     dispatch(logout());
@@ -29,7 +30,7 @@ const PrivateLinks: FC = () => {
 
   return (
     <LinkContainer>
-      {isTodosPage(location.pathname) && !!todos.length && <Filter />}
+      {isShouldRenderFilter && <Filter />}
       <LinkWithQuery to={path}>
         <IconContainer>
           <GrAddCircle />
