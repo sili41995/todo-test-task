@@ -6,6 +6,7 @@ import { selectIsLoaded } from 'redux/todos/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { fetchTodos } from 'redux/todos/operations';
 import TodosContainer from 'components/TodosContainer';
+import { toasts } from 'utils';
 
 const TodosPage = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,9 @@ const TodosPage = () => {
   useEffect(() => {
     const promise = dispatch(fetchTodos());
 
+    promise.unwrap().catch((error) => {
+      toasts.errorToast(error);
+    });
     return () => {
       promise.abort();
     };

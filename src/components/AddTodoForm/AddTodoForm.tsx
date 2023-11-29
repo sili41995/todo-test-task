@@ -5,6 +5,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 import IconButton from 'components/IconButton';
 import Input from 'components/Input';
+import TodoModalForm from 'components/TodoModalForm';
+import GoBackLink from 'components/GoBackLink';
 import { Buttons, Form, Title } from './AddTodoForm.styled';
 import { getIsTodo, toasts } from 'utils';
 import { selectIsLoading, selectTodos } from 'redux/todos/selectors';
@@ -13,8 +15,6 @@ import { IconBtnType } from 'constants/iconBtnType';
 import { BtnType } from 'constants/btnType';
 import { ITodo } from 'types/types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import TodoModalForm from 'components/TodoModalForm';
-import GoBackLink from 'components/GoBackLink';
 
 const AddTodoForm: FC = () => {
   const todos = useAppSelector(selectTodos);
@@ -30,17 +30,19 @@ const AddTodoForm: FC = () => {
   useEffect(() => {
     errors.title && toasts.errorToast('Title is required');
   }, [errors, isSubmitting]);
+
   const handleFormSubmit: SubmitHandler<ITodo> = (data) => {
     if (getIsTodo({ todos, newTodo: data })) return;
     const todo = { ...data, completed: false, userId: 10 };
+
     dispatch(addTodo(todo))
       .unwrap()
       .then(() => {
         toasts.successToast('Todo added successfully');
         reset();
       })
-      .catch(() => {
-        toasts.errorToast('Adding a todo failed');
+      .catch((error) => {
+        toasts.errorToast(error);
       });
   };
 

@@ -8,7 +8,16 @@ const authState: IAuthInitialState = initialState.auth;
 const authSlice = createSlice({
   name: 'auth',
   initialState: authState,
-  reducers: { logout: () => initialState.auth },
+  reducers: {
+    logout: (state) => ({
+      ...initialState.auth,
+      user: {
+        ...initialState.auth.user,
+        name: state.user.name,
+        avatar: state.user.avatar,
+      },
+    }),
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, { payload }) => ({

@@ -20,8 +20,8 @@ const useDeleteTodo = () => {
           navigate(path);
           toasts.successToast('Todo successfully removed');
         })
-        .catch(() => {
-          toasts.errorToast('Deleting a Todo failed');
+        .catch((error) => {
+          toasts.errorToast(error);
         });
     }
   }, [TodoId, dispatch, navigate, path]);

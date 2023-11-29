@@ -16,8 +16,8 @@ export const fetchTodos = createAsyncThunk<
     }: { rejectWithValue: Function; signal: AbortSignal }
   ) => {
     try {
-      const Todos = await todosServiceApi.fetchTodos(signal);
-      return Todos;
+      const response = await todosServiceApi.fetchTodos(signal);
+      return response;
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error.message);
@@ -31,6 +31,9 @@ export const addTodo = createAsyncThunk<ITodo, ITodo, { rejectValue: string }>(
   async (todo: ITodo, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       const response = await todosServiceApi.addTodo(todo);
+      if (!response.id) {
+        throw Error('Adding a Todo failed');
+      }
       return { ...response, ...todo };
     } catch (error) {
       if (error instanceof Error) {
@@ -48,7 +51,10 @@ export const deleteTodo = createAsyncThunk<
   'todos/deleteTodo',
   async (id: number, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
-      await todosServiceApi.deleteTodo(id);
+      const response = await todosServiceApi.deleteTodo(id);
+      if (response.message) {
+        throw Error('Deleting a Todo failed');
+      }
       return { id };
     } catch (error) {
       if (error instanceof Error) {
@@ -66,7 +72,10 @@ export const updateTodo = createAsyncThunk<
   'todos/updateTodo',
   async (data, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
-      await todosServiceApi.updateTodo(data);
+      const response = await todosServiceApi.updateTodo(data);
+      if (!response.id) {
+        throw Error('Todo update failed');
+      }
       return data;
     } catch (error) {
       if (error instanceof Error) {

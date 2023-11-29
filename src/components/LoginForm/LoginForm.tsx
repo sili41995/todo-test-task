@@ -11,7 +11,7 @@ import { Message, Title, Image, Form, Button } from './LoginForm.styled';
 import defaultAvatar from 'images/default-signin-avatar.png';
 import { toasts } from 'utils';
 import Input from 'components/Input';
-import { selectIsLoading } from 'redux/auth/selectors';
+import { selectIsLoading, selectUser } from 'redux/auth/selectors';
 import { loginUser } from 'redux/auth/operations';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { ICredentials } from 'types/types';
@@ -24,6 +24,7 @@ const LoginForm: FC = () => {
   const [credentials, setCredentials] = useState<ICredentials | null>(null);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const isLoading = useAppSelector(selectIsLoading);
+  const { name, avatar } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const {
     register,
@@ -33,6 +34,7 @@ const LoginForm: FC = () => {
   } = useForm<ICredentials>();
   const watchPassword = watch('password');
   const registerPageLink = `/${PagesPath.registerPath}`;
+  const greetingMessage = `Welcome to Phonebook${name ? ', ' + name : ''}!`;
 
   const toggleIsShowPassword = () => {
     setIsShowPassword((prevState) => !prevState);
@@ -68,8 +70,8 @@ const LoginForm: FC = () => {
   return (
     <>
       <Title>log in</Title>
-      <Message>Welcome to Phonebook!</Message>
-      <Image src={defaultAvatar} alt='user avatar' />
+      <Message>{greetingMessage}</Message>
+      <Image src={avatar ?? defaultAvatar} alt='user avatar' />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           settings={{ ...register('email', { required: true }) }}

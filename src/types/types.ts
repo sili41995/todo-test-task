@@ -3,6 +3,7 @@ export interface ITodo {
   id: number;
   title: string;
   completed: boolean;
+  message?: string;
 }
 
 export interface ITodosInitialState {

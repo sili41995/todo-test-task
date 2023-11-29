@@ -14,6 +14,9 @@ export const registerUser = createAsyncThunk<
   ) => {
     try {
       const response = await contactsServiceApi.registerUser(credentials);
+      if (!response.id) {
+        throw Error('Sign Up failed');
+      }
       return response;
     } catch (error) {
       if (error instanceof Error) {
@@ -68,6 +71,9 @@ export const refreshUser = createAsyncThunk<
     try {
       contactsServiceApi.token = token;
       const response = await contactsServiceApi.refreshUser();
+      if (!response.id) {
+        throw Error('Log In failed');
+      }
       return response;
     } catch (error) {
       if (error instanceof Error) {

@@ -1,24 +1,23 @@
-import { useState, FC } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { FaUser } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
 import { GiCheckMark } from 'react-icons/gi';
+import { useParams } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 import { Buttons, Form, Title, InputContainer } from './EditForm.styled';
 import IconButton from 'components/IconButton';
 import Input from 'components/Input';
+import TodoModalForm from 'components/TodoModalForm';
+import GoBackLink from 'components/GoBackLink';
 import { toasts } from 'utils';
 import { useTargetTodo } from 'hooks';
 import { updateTodo } from 'redux/todos/operations';
 import { selectIsLoading } from 'redux/todos/selectors';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { ITodo } from 'types/types';
-import { useEffect } from 'react';
 import { BtnType } from 'constants/btnType';
 import { PagesPath } from 'constants/pagesPath';
 import { IconBtnType } from 'constants/iconBtnType';
-import TodoModalForm from 'components/TodoModalForm';
-import GoBackLink from 'components/GoBackLink';
 
 const EditForm: FC = () => {
   const isLoading = useAppSelector(selectIsLoading);
@@ -47,16 +46,14 @@ const EditForm: FC = () => {
   }, [reset, id, completed]);
 
   const handleFormSubmit: SubmitHandler<ITodo> = (data) => {
-    if (id) {
-      dispatch(updateTodo({ ...data, id: Number(id) }))
-        .unwrap()
-        .then(() => {
-          toasts.successToast('Todo updated successfully');
-        })
-        .catch(() => {
-          toasts.errorToast('Todo update failed');
-        });
-    }
+    dispatch(updateTodo({ ...data, id: Number(id) }))
+      .unwrap()
+      .then(() => {
+        toasts.successToast('Todo updated successfully');
+      })
+      .catch((error) => {
+        toasts.errorToast(error);
+      });
   };
 
   const onCheckboxChange = () => {

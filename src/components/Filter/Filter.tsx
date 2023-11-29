@@ -1,10 +1,9 @@
-import { FC } from 'react';
-import { IoMdClose } from 'react-icons/io';
+import { FC, ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { IoMdClose } from 'react-icons/io';
 import { BsSortAlphaDown } from 'react-icons/bs';
 import { BsSortAlphaDownAlt } from 'react-icons/bs';
 import { FiFilter } from 'react-icons/fi';
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { FilterContainer } from './Filter.styled';
 import { makeBlur, updateSortSearchParams } from 'utils';
 import IconButton from 'components/IconButton';
@@ -18,10 +17,15 @@ const { FILTER_SP_KEY, SORT_SP_KEY, PAGE_SP_KEY } = SearchParamsKeys;
 const { DESC_SORT_TYPE } = SortTypes;
 
 const Filter: FC = () => {
-  const [showFilter, setShowFilter] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get(FILTER_SP_KEY) ?? '';
+  const [showFilter, setShowFilter] = useState<boolean>(() => Boolean(filter));
   const deskSortType = searchParams.get(SORT_SP_KEY) === DESC_SORT_TYPE;
+  const sortBtnIcon = deskSortType ? (
+    <BsSortAlphaDown />
+  ) : (
+    <BsSortAlphaDownAlt />
+  );
 
   useEffect(() => {
     if (!showFilter) {
@@ -29,12 +33,6 @@ const Filter: FC = () => {
       setSearchParams(searchParams);
     }
   }, [searchParams, setSearchParams, showFilter]);
-
-  useEffect(() => {
-    if (filter) {
-      setShowFilter(true);
-    }
-  }, [filter]);
 
   const onSortBtnClick = ({ currentTarget }: MouseEvent<HTMLButtonElement>) => {
     makeBlur(currentTarget);
@@ -81,17 +79,15 @@ const Filter: FC = () => {
         iconSize={28}
         width={44}
         onBtnClick={onFilterBtnClick}
-      >
-        <FiFilter />
-      </IconButton>
+        children={<FiFilter />}
+      />
       <IconButton
         btnType={IconBtnType.filter}
         iconSize={28}
         width={44}
         onBtnClick={onSortBtnClick}
-      >
-        {deskSortType ? <BsSortAlphaDown /> : <BsSortAlphaDownAlt />}
-      </IconButton>
+        children={sortBtnIcon}
+      />
     </FilterContainer>
   );
 };
