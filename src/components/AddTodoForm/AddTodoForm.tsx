@@ -31,9 +31,7 @@ const AddTodoForm = () => {
   const goBackLink = location.state?.from || PagesPath.homePath;
 
   useEffect(() => {
-    if (isSubmitting) {
       errors.title && toasts.errorToast('Title is required');
-    }
   }, [errors, isSubmitting]);
 
   const handleFormSubmit: SubmitHandler<ITodo> = (data) => {

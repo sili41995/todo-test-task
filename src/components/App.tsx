@@ -10,6 +10,7 @@ import { PagesPath } from 'constants/pagesPath';
 import { refreshUser } from 'redux/auth/operations';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { selectIsRefreshing, selectToken } from 'redux/auth/selectors';
+import { toasts } from 'utils';
 
 const RegisterPage = lazy(() => import('pages/RegisterPage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
@@ -26,7 +27,14 @@ const App = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(refreshUser());
+      dispatch(refreshUser())
+        .unwrap()
+        .then(() => {
+          toasts.successToast('Hello, my friend!');
+        })
+        .catch((error) => {
+          toasts.errorToast(error);
+        });
     }
   }, [dispatch, token]);
 

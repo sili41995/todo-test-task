@@ -14,8 +14,10 @@ import { ICredentials } from 'types/types';
 import { PagesPath } from 'constants/pagesPath';
 import { FormType } from 'constants/formType';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const {
@@ -23,7 +25,7 @@ const RegisterForm = () => {
     formState: { errors, isSubmitting },
     handleSubmit,
   } = useForm<ICredentials>();
-  const pageLink = `/${PagesPath.loginPath}`;
+  const loginPageLink = `/${PagesPath.loginPath}`;
 
   const onSubmit: SubmitHandler<ICredentials> = (data) => {
     const credentials = {
@@ -34,7 +36,8 @@ const RegisterForm = () => {
     dispatch(registerUser(credentials))
       .unwrap()
       .then(() => {
-        toasts.successToast('Hello, my friend!');
+        toasts.successToast('User has been successfully registered');
+        navigate(loginPageLink);
       })
       .catch((error) => {
         toasts.errorToast(error);
@@ -42,16 +45,14 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
-    if (isSubmitting) {
-      errors.name && toasts.errorToast('Username is required');
-      errors.email && toasts.errorToast('Email is required');
-      errors.password &&
-        toasts.errorToast(
-          errors.password.type === 'required'
-            ? 'Password is required'
-            : 'Password minimum length is 7 characters'
-        );
-    }
+    errors.name && toasts.errorToast('Username is required');
+    errors.email && toasts.errorToast('Email is required');
+    errors.password &&
+      toasts.errorToast(
+        errors.password.type === 'required'
+          ? 'Password is required'
+          : 'Password minimum length is 7 characters'
+      );
   }, [errors, isSubmitting]);
 
   return (
@@ -91,7 +92,7 @@ const RegisterForm = () => {
         />
         <AuthFormMessage
           action={'Log in'}
-          pageLink={pageLink}
+          pageLink={loginPageLink}
           message={'if you have an account'}
         />
         <Button disabled={isLoading} type='submit'>

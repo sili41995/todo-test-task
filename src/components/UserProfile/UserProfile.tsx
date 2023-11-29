@@ -13,28 +13,14 @@ import {
   UserProfileContainer,
 } from './UserProfile.styled';
 import { getUserAvatar } from 'utils';
+import { useAppSelector } from 'hooks/redux';
+import { selectUser } from 'redux/auth/selectors';
 
 const UserProfile = () => {
-  // const {
-  //   name,
-  //   userAvatar,
-  //   userName,
-  //   email,
-  //   dateOfBirth,
-  //   phoneNumber,
-  //   location,
-  // } = useAppSelector(selectUser);
-  const { name, avatar, surname, email, dateOfBirth, phoneNumber, location } = {
-    name: 'alex',
-    avatar: '',
-    surname: '',
-    email: 'sil@gmail.com',
-    dateOfBirth: '',
-    phoneNumber: '',
-    location: '',
-  };
+  const { name, avatar, lastName, email, dateOfBirth, phoneNumber, location } =
+    useAppSelector(selectUser);
   const userAvatar = getUserAvatar(avatar);
-  const userName = surname ? `${name} ${surname}` : name;
+  const userName = lastName ? `${name} ${lastName}` : name;
 
   return (
     <UserProfileContainer>

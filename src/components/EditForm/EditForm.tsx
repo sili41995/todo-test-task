@@ -36,9 +36,7 @@ const EditForm = ({ goBackLink }: IProps) => {
   } = useForm<ITodo>();
 
   useEffect(() => {
-    if (isSubmitting) {
-      errors.title && toasts.errorToast('Title is required');
-    }
+    errors.title && toasts.errorToast('Title is required');
   }, [errors, isSubmitting]);
 
   useEffect(() => {

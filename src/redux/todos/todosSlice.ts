@@ -2,6 +2,7 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import initialState from 'redux/initialState';
 import { addTodo, deleteTodo, fetchTodos, updateTodo } from './operations';
 import { ITodosInitialState } from 'types/types';
+import { logout } from 'redux/auth/authSlice';
 
 const todosState: ITodosInitialState = initialState.todos;
 
@@ -33,6 +34,7 @@ const todosSlice = createSlice({
         isLoading: false,
         items: [...state.items.filter(({ id }) => id !== payload.id), payload],
       }))
+      .addCase(logout, () => ({ ...initialState.todos }))
       .addMatcher(
         isAnyOf(
           fetchTodos.pending,

@@ -8,7 +8,7 @@ const initialState: IInitialState = {
     error: null,
   },
   auth: {
-    user: { name: null, email: null },
+    user: { name: null, email: null, avatar: null },
     token: null,
     isLoggedIn: false,
     isRefreshing: false,

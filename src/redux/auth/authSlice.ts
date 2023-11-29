@@ -8,7 +8,7 @@ const authState: IAuthInitialState = initialState.auth;
 const authSlice = createSlice({
   name: 'auth',
   initialState: authState,
-  reducers: {},
+  reducers: { logout: () => initialState.auth },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, { payload }) => ({
@@ -55,5 +55,7 @@ const authSlice = createSlice({
       );
   },
 });
+
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

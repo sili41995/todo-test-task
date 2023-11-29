@@ -32,7 +32,7 @@ const LoginForm = () => {
     watch,
   } = useForm<ICredentials>();
   const watchPassword = watch('password');
-  const pageLink = `/${PagesPath.registerPath}`;
+  const registerPageLink = `/${PagesPath.registerPath}`;
 
   const toggleIsShowPassword = () => {
     setIsShowPassword((prevState) => !prevState);
@@ -41,14 +41,9 @@ const LoginForm = () => {
   useEffect(() => {
     if (credentials) {
       const promise = dispatch(loginUser(credentials));
-      promise
-        .unwrap()
-        .then(() => {
-          toasts.successToast('Hello, my friend!');
-        })
-        .catch((error) => {
-          toasts.errorToast(error);
-        });
+      promise.unwrap().catch((error) => {
+        toasts.errorToast(error);
+      });
 
       return () => {
         promise.abort();
@@ -57,15 +52,13 @@ const LoginForm = () => {
   }, [credentials, dispatch]);
 
   useEffect(() => {
-    if (isSubmitting) {
-      errors.email && toasts.errorToast('Email is required');
-      errors.password &&
-        toasts.errorToast(
-          errors.password.type === 'required'
-            ? 'Password is required'
-            : 'Password minimum length is 7 characters'
-        );
-    }
+    errors.email && toasts.errorToast('Email is required');
+    errors.password &&
+      toasts.errorToast(
+        errors.password.type === 'required'
+          ? 'Password is required'
+          : 'Password minimum length is 7 characters'
+      );
   }, [isSubmitting, errors]);
 
   const onSubmit: SubmitHandler<ICredentials> = (data) => {
@@ -107,7 +100,7 @@ const LoginForm = () => {
         />
         <AuthFormMessage
           action={'Sign up'}
-          pageLink={pageLink}
+          pageLink={registerPageLink}
           message={"if you don't have an account yet"}
         />
         <Button disabled={isLoading} type='submit'>

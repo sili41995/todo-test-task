@@ -65,9 +65,6 @@ export const refreshUser = createAsyncThunk<
   ) => {
     const state = getState() as IInitialState;
     const { token } = state.auth;
-    if (!token) {
-      return rejectWithValue('Unable to fetch user');
-    }
     try {
       contactsServiceApi.token = token;
       const response = await contactsServiceApi.refreshUser();
