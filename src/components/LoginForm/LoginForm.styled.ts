@@ -42,6 +42,9 @@ export const Button = styled.button`
   line-height: 1.5;
   letter-spacing: 0.64px;
   transition: background-color ${({ theme }) => theme.transitionDurationAndFunc};
+  &::first-letter {
+    text-transform: uppercase;
+  }
   &:hover,
   &:focus {
     background-color: ${({ theme }) => theme.colors.secondaryColor};

@@ -14,10 +14,10 @@ const TodosPage = () => {
 
   useEffect(() => {
     const promise = dispatch(fetchTodos());
-
     promise.unwrap().catch((error) => {
       toasts.errorToast(error);
     });
+
     return () => {
       promise.abort();
     };

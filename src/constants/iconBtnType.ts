@@ -1,4 +1,4 @@
-export enum IconBtnType {
+export const enum IconBtnType {
   delete = 'delete',
   edit = 'edit',
   phone = 'phone',

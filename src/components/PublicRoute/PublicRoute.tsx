@@ -10,12 +10,10 @@ import { IProps } from './PublicRoute.types';
 export const PublicRoute: FC<IProps> = ({ element, restricted = false }) => {
   const isFirstRenderRef = useRef<boolean>(true);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const location = useLocation();
+  const { state } = useLocation();
   const shouldRedirect = isLoggedIn && restricted;
-  const defaultGoBackPath = `/${PagesPath.todosPath}`;
-  const goBackPath = location.state?.from ?? defaultGoBackPath;
-  const isShowWarnToast =
-    location.state && !isLoggedIn && isFirstRenderRef.current;
+  const goBackPath = state?.from ?? `/${PagesPath.todosPath}`;
+  const isShowWarnToast = state && !isLoggedIn && isFirstRenderRef.current;
 
   useEffect(() => {
     isShowWarnToast && toasts.warnToast('Please, authenticate in the app');

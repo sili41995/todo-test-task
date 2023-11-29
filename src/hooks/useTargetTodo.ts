@@ -6,10 +6,10 @@ import { ITodo } from 'types/types';
 
 const useTargetTodo = (): ITodo | undefined => {
   const id = useParams()[PagesPath.dynamicParam];
-  const Todos: ITodo[] = useAppSelector(selectTodos);
-  const targetTodo = Todos.find(({ id: todoId }) => String(todoId) === id);
+  const todos: ITodo[] = useAppSelector(selectTodos);
+  const targetTodo = todos.find(({ id: todoId }) => String(todoId) === id);
 
-  return targetTodo && targetTodo;
+  return targetTodo;
 };
 
 export default useTargetTodo;

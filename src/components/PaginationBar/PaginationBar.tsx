@@ -1,7 +1,7 @@
 import { FC } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { IProps } from './PaginationBar.types';
 import { getPageNumbers, getPaginationBarSettings } from 'utils';
-import { useSearchParams } from 'react-router-dom';
 import { SearchParamsKeys } from 'constants/searchParamsKeys';
 import { Button, Item, List, TemplateItem } from './PaginationBar.styled';
 

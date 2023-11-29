@@ -9,14 +9,14 @@ import { selectIsLoggedIn } from 'redux/auth/selectors';
 
 const Navigation: FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const TodosPagePath = `/${PagesPath.todosPath}`;
+  const todosPagePath = `/${PagesPath.todosPath}`;
   const aboutPagePath = `/${PagesPath.aboutPath}`;
 
   return (
     <NavContainer>
       <List>
         <ListItem>
-          <NavLink to={TodosPagePath}>Todos</NavLink>
+          <NavLink to={todosPagePath}>Todos</NavLink>
         </ListItem>
         <ListItem>
           <NavLink to={aboutPagePath}>About</NavLink>

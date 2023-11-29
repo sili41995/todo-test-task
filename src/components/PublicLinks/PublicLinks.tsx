@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { List, ListItem } from './PublicLinks.styled';
 import { PagesPath } from 'constants/pagesPath';
+import { Messages } from 'constants/messages';
 
 const PublicLinks: FC = () => {
   const registerPagePath = `/${PagesPath.registerPath}`;
@@ -10,10 +11,10 @@ const PublicLinks: FC = () => {
   return (
     <List>
       <ListItem>
-        <NavLink to={registerPagePath}>Sign up</NavLink>
+        <NavLink to={registerPagePath}>{Messages.signUp}</NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={loginPagePath}>Log in</NavLink>
+        <NavLink to={loginPagePath}>{Messages.logIn}</NavLink>
       </ListItem>
     </List>
   );

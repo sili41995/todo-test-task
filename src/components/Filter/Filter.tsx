@@ -69,25 +69,28 @@ const Filter: FC = () => {
           inputType={FormType.filter}
           autoFocus
           inputWrap
-          children={filter && <IoMdClose />}
           btnType={IconBtnType.clearFilter}
           action={onClearFilterBtnClick}
-        />
+        >
+          {filter && <IoMdClose />}
+        </Input>
       )}
       <IconButton
         btnType={IconBtnType.filter}
         iconSize={28}
         width={44}
         onBtnClick={onFilterBtnClick}
-        children={<FiFilter />}
-      />
+      >
+        {<FiFilter />}
+      </IconButton>
       <IconButton
         btnType={IconBtnType.filter}
         iconSize={28}
         width={44}
         onBtnClick={onSortBtnClick}
-        children={sortBtnIcon}
-      />
+      >
+        {sortBtnIcon}
+      </IconButton>
     </FilterContainer>
   );
 };

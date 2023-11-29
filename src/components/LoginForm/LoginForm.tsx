@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Message, Title, Image, Form, Button } from './LoginForm.styled';
 import defaultAvatar from 'images/default-signin-avatar.png';
 import { toasts } from 'utils';
+import AuthFormMessage from 'components/AuthFormMessage';
 import Input from 'components/Input';
 import { selectIsLoading, selectUser } from 'redux/auth/selectors';
 import { loginUser } from 'redux/auth/operations';
@@ -18,7 +19,10 @@ import { ICredentials } from 'types/types';
 import { PagesPath } from 'constants/pagesPath';
 import { FormType } from 'constants/formType';
 import { IconBtnType } from 'constants/iconBtnType';
-import AuthFormMessage from 'components/AuthFormMessage';
+import { Messages } from 'constants/messages';
+
+const { greetings, eEmailIsReq, ePassIsReq, ePassMinLength, logIn, signUp } =
+  Messages;
 
 const LoginForm: FC = () => {
   const [credentials, setCredentials] = useState<ICredentials | null>(null);
@@ -34,7 +38,12 @@ const LoginForm: FC = () => {
   } = useForm<ICredentials>();
   const watchPassword = watch('password');
   const registerPageLink = `/${PagesPath.registerPath}`;
-  const greetingMessage = `Welcome to Phonebook${name ? ', ' + name : ''}!`;
+  const greetingMessage = `${greetings}${name && ', ' + name}!`;
+  const passwordBtnIcon = isShowPassword ? (
+    <AiOutlineEyeInvisible />
+  ) : (
+    <AiOutlineEye />
+  );
 
   const toggleIsShowPassword = () => {
     setIsShowPassword((prevState) => !prevState);
@@ -54,12 +63,10 @@ const LoginForm: FC = () => {
   }, [credentials, dispatch]);
 
   useEffect(() => {
-    errors.email && toasts.errorToast('Email is required');
+    errors.email && toasts.errorToast(eEmailIsReq);
     errors.password &&
       toasts.errorToast(
-        errors.password.type === 'required'
-          ? 'Password is required'
-          : 'Password minimum length is 7 characters'
+        errors.password.type === 'required' ? ePassIsReq : ePassMinLength
       );
   }, [isSubmitting, errors]);
 
@@ -69,7 +76,7 @@ const LoginForm: FC = () => {
 
   return (
     <>
-      <Title>log in</Title>
+      <Title>{logIn}</Title>
       <Message>{greetingMessage}</Message>
       <Image src={avatar ?? defaultAvatar} alt='user avatar' />
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -90,23 +97,21 @@ const LoginForm: FC = () => {
           type={isShowPassword ? 'text' : 'password'}
           placeholder='Password'
           inputType={FormType.authForm}
-          children={
-            watchPassword &&
-            (isShowPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />)
-          }
           btnType={IconBtnType.toggleShowPassword}
           action={toggleIsShowPassword}
           inputWrap
           fieldIcon={<AiFillLock />}
           fieldIconSize={20}
-        />
+        >
+          {watchPassword && passwordBtnIcon}
+        </Input>
         <AuthFormMessage
-          action={'Sign up'}
+          action={signUp}
           pageLink={registerPageLink}
-          message={"if you don't have an account yet"}
+          message={" if you don't have an account yet"}
         />
         <Button disabled={isLoading} type='submit'>
-          Log in
+          {logIn}
         </Button>
       </Form>
     </>

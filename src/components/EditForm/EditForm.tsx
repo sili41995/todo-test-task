@@ -18,6 +18,7 @@ import { ITodo } from 'types/types';
 import { BtnType } from 'constants/btnType';
 import { PagesPath } from 'constants/pagesPath';
 import { IconBtnType } from 'constants/iconBtnType';
+import { Messages } from 'constants/messages';
 
 const EditForm: FC = () => {
   const isLoading = useAppSelector(selectIsLoading);
@@ -34,7 +35,7 @@ const EditForm: FC = () => {
   } = useForm<ITodo>();
 
   useEffect(() => {
-    errors.title && toasts.errorToast('Title is required');
+    errors.title && toasts.errorToast(Messages.eTitleIsReq);
   }, [errors, isSubmitting]);
 
   useEffect(() => {
@@ -69,7 +70,6 @@ const EditForm: FC = () => {
             settings={{ ...register('completed') }}
             checked={checked}
             type='checkbox'
-            placeholder='Phone'
             onChange={onCheckboxChange}
           />
           <Input

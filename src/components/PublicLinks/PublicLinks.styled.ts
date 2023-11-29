@@ -21,6 +21,9 @@ export const ListItem = styled.li`
     text-align: center;
     transition: color,
       background-color ${({ theme }) => theme.transitionDurationAndFunc};
+    &::first-letter {
+      text-transform: uppercase;
+    }
     &:hover,
     &:focus,
     &.active {

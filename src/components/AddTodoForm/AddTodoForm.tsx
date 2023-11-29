@@ -15,6 +15,7 @@ import { IconBtnType } from 'constants/iconBtnType';
 import { BtnType } from 'constants/btnType';
 import { ITodo } from 'types/types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { Messages } from 'constants/messages';
 
 const AddTodoForm: FC = () => {
   const todos = useAppSelector(selectTodos);
@@ -28,7 +29,7 @@ const AddTodoForm: FC = () => {
   } = useForm<ITodo>();
 
   useEffect(() => {
-    errors.title && toasts.errorToast('Title is required');
+    errors.title && toasts.errorToast(Messages.eTitleIsReq);
   }, [errors, isSubmitting]);
 
   const handleFormSubmit: SubmitHandler<ITodo> = (data) => {

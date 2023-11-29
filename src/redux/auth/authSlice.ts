@@ -55,7 +55,11 @@ const authSlice = createSlice({
         (state) => ({ ...state, isLoading: true, error: null })
       )
       .addMatcher(
-        isAnyOf(registerUser.rejected, loginUser.rejected),
+        isAnyOf(
+          registerUser.rejected,
+          loginUser.rejected,
+          refreshUser.rejected
+        ),
         (state, { payload }) => ({
           ...state,
           isLoading: false,

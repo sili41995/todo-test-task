@@ -1,8 +1,8 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import initialState from 'redux/initialState';
+import { logout } from 'redux/auth/authSlice';
 import { addTodo, deleteTodo, fetchTodos, updateTodo } from './operations';
 import { ITodosInitialState } from 'types/types';
-import { logout } from 'redux/auth/authSlice';
 
 const todosState: ITodosInitialState = initialState.todos;
 

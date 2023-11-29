@@ -8,8 +8,8 @@ import PrivateRoute from 'components/PrivateRoute';
 import Loader from 'components/Loader';
 import { PagesPath } from 'constants/pagesPath';
 import { refreshUser } from 'redux/auth/operations';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { selectIsRefreshing, selectToken } from 'redux/auth/selectors';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { toasts } from 'utils';
 
 const RegisterPage = lazy(() => import('pages/RegisterPage'));
@@ -19,6 +19,16 @@ const TodosPage = lazy(() => import('pages/TodosPage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 const AddTodoForm = lazy(() => import('components/AddTodoForm'));
 const TodoDetails = lazy(() => import('components/TodoDetails'));
+
+const {
+  homePath,
+  loginPath,
+  registerPath,
+  aboutPath,
+  todosPath,
+  dynamicParam,
+  newTodoPath,
+} = PagesPath;
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -31,9 +41,6 @@ const App = () => {
         .unwrap()
         .then(() => {
           toasts.successToast('Hello, my friend!');
-        })
-        .catch((error) => {
-          toasts.errorToast(error);
         });
     }
   }, [dispatch, token]);
@@ -43,32 +50,29 @@ const App = () => {
   ) : (
     <>
       <Routes>
-        <Route path={PagesPath.homePath} element={<SharedLayout />}>
+        <Route path={homePath} element={<SharedLayout />}>
           <Route
             index
             element={<PublicRoute restricted element={<LoginPage />} />}
           />
           <Route
-            path={PagesPath.loginPath}
+            path={loginPath}
             element={<PublicRoute restricted element={<LoginPage />} />}
           />
           <Route
-            path={PagesPath.registerPath}
+            path={registerPath}
             element={<PublicRoute restricted element={<RegisterPage />} />}
           />
           <Route
-            path={PagesPath.aboutPath}
+            path={aboutPath}
             element={<PublicRoute element={<AboutPage />} />}
           />
           <Route
-            path={PagesPath.todosPath}
+            path={todosPath}
             element={<PrivateRoute element={<TodosPage />} />}
           >
-            <Route
-              path={`:${PagesPath.dynamicParam}`}
-              element={<TodoDetails />}
-            />
-            <Route path={PagesPath.newTodoPath} element={<AddTodoForm />} />
+            <Route path={`:${dynamicParam}`} element={<TodoDetails />} />
+            <Route path={newTodoPath} element={<AddTodoForm />} />
           </Route>
           <Route path='*' element={<NotFoundPage />} />
         </Route>

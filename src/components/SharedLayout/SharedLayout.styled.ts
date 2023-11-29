@@ -13,7 +13,7 @@ export const Container = styled.div`
   display: ${({ isTodosPage }: IStyledProps) =>
     isTodosPage ? 'flex' : 'block'};
   gap: ${({ isTodosPage, theme }) => (isTodosPage ? theme.primaryGap : 0)}px;
-  width: 1200px;
+  width: ${({ theme }) => theme.deskContainerWidth}px;
   padding-left: ${({ theme }) => theme.padding.paddingContainer}px;
   padding-right: ${({ theme }) => theme.padding.paddingContainer}px;
   margin-left: auto;

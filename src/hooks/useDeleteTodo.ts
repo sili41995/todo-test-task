@@ -6,15 +6,15 @@ import { useAppDispatch } from 'hooks/redux';
 import { PagesPath } from 'constants/pagesPath';
 
 const useDeleteTodo = () => {
-  const [TodoId, setTodoId] = useState<number | null>(null);
+  const [todoId, setTodoId] = useState<number | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
   const path = `/${PagesPath.todosPath + search}`;
 
   useEffect(() => {
-    if (TodoId) {
-      dispatch(deleteTodo(TodoId))
+    if (todoId) {
+      dispatch(deleteTodo(todoId))
         .unwrap()
         .then(() => {
           navigate(path);
@@ -24,7 +24,7 @@ const useDeleteTodo = () => {
           toasts.errorToast(error);
         });
     }
-  }, [TodoId, dispatch, navigate, path]);
+  }, [todoId, dispatch, navigate, path]);
 
   return setTodoId;
 };

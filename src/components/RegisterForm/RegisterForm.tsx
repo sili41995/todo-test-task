@@ -15,6 +15,10 @@ import { ICredentials } from 'types/types';
 import { PagesPath } from 'constants/pagesPath';
 import { FormType } from 'constants/formType';
 import { useNavigate } from 'react-router-dom';
+import { Messages } from 'constants/messages';
+
+const { eEmailIsReq, ePassIsReq, ePassMinLength, greetings, signUp, logIn } =
+  Messages;
 
 const RegisterForm: FC = () => {
   const navigate = useNavigate();
@@ -26,11 +30,12 @@ const RegisterForm: FC = () => {
     handleSubmit,
   } = useForm<ICredentials>();
   const loginPageLink = `/${PagesPath.loginPath}`;
+  const defaultAvatar =
+    'https://www.sailmet.com/Content/Images/news/202111/a2b1176f1dda45cb9000980a8edced6a.jpg';
 
   const onSubmit: SubmitHandler<ICredentials> = (data) => {
     const credentials = {
-      avatar:
-        'https://www.sailmet.com/Content/Images/news/202111/a2b1176f1dda45cb9000980a8edced6a.jpg',
+      avatar: defaultAvatar,
       ...data,
     };
     dispatch(registerUser(credentials))
@@ -46,19 +51,17 @@ const RegisterForm: FC = () => {
 
   useEffect(() => {
     errors.name && toasts.errorToast('Username is required');
-    errors.email && toasts.errorToast('Email is required');
+    errors.email && toasts.errorToast(eEmailIsReq);
     errors.password &&
       toasts.errorToast(
-        errors.password.type === 'required'
-          ? 'Password is required'
-          : 'Password minimum length is 7 characters'
+        errors.password.type === 'required' ? ePassIsReq : ePassMinLength
       );
   }, [errors, isSubmitting]);
 
   return (
     <>
-      <Title>sign up</Title>
-      <Message>Welcome to Phonebook!</Message>
+      <Title>{signUp}</Title>
+      <Message>{`${greetings}!`}</Message>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           settings={{ ...register('name', { required: true }) }}
@@ -91,9 +94,9 @@ const RegisterForm: FC = () => {
           fieldIconSize={20}
         />
         <AuthFormMessage
-          action={'Log in'}
+          action={logIn}
           pageLink={loginPageLink}
-          message={'if you have an account'}
+          message={' if you have an account'}
         />
         <Button disabled={isLoading} type='submit'>
           Enlist

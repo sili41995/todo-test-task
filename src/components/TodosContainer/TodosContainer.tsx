@@ -1,10 +1,10 @@
 import { useMemo, FC } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import PaginationBar from 'components/PaginationBar';
 import TodosList from 'components/TodosList';
 import { IProps } from './TodosContainer.types';
 import { SearchParamsKeys } from 'constants/searchParamsKeys';
 import { useAppSelector } from 'hooks/redux';
-import { useSearchParams } from 'react-router-dom';
 import { selectTodos } from 'redux/todos/selectors';
 import { filterTodosByTitle, getVisibleTodos, sortTodosByTitle } from 'utils';
 import { Container } from './TodosContainer.styled';

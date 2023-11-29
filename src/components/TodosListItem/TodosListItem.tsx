@@ -4,10 +4,10 @@ import IconButton from 'components/IconButton';
 import LinkWithQuery from 'components/LinkWithQuery/LinkWithQuery';
 import { Item, Title } from './TodosListItem.styled';
 import { selectIsLoading } from 'redux/todos/selectors';
+import { useDeleteTodo } from 'hooks';
 import { useAppSelector } from 'hooks/redux';
 import { IProps } from './TodosListItem.types';
 import { IconBtnType } from 'constants/iconBtnType';
-import { useDeleteTodo } from 'hooks';
 
 const TodosListItem: FC<IProps> = ({ todo }) => {
   const { title, id, completed } = todo;
@@ -15,9 +15,7 @@ const TodosListItem: FC<IProps> = ({ todo }) => {
   const deleteTodo = useDeleteTodo();
 
   const handleDelBtnClick = () => {
-    if (id) {
-      deleteTodo(id);
-    }
+    deleteTodo(id);
   };
 
   return (
