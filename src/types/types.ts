@@ -12,15 +12,28 @@ export interface ITodosInitialState {
   error: string | null;
 }
 
-export interface ITodosInitialState {
-  items: ITodo[];
+export interface IUser {
+  name: string | null;
+  email: string | null;
+  lastName?: string;
+  avatar?: string;
+  dateOfBirth?: string;
+  phoneNumber?: string;
+  location?: string;
+}
+
+export interface IAuthInitialState {
+  user: IUser;
+  token: null | string;
+  isLoggedIn: boolean;
+  isRefreshing: boolean;
   isLoading: boolean;
-  isLoaded: boolean;
   error: string | null;
 }
 
 export interface IInitialState {
   todos: ITodosInitialState;
+  auth: IAuthInitialState;
 }
 
 export type Message = string;
@@ -29,4 +42,14 @@ export interface ICredentials {
   name?: string;
   password: string;
   email: string;
+}
+
+export interface IAuthResponse {
+  access_token: string;
+  email: string;
+  password: string;
+  name: string;
+  avatar: string;
+  role: string;
+  id: number;
 }

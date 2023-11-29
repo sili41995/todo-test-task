@@ -7,6 +7,14 @@ const initialState: IInitialState = {
     isLoaded: false,
     error: null,
   },
+  auth: {
+    user: { name: null, email: null },
+    token: null,
+    isLoggedIn: false,
+    isRefreshing: false,
+    isLoading: false,
+    error: null,
+  },
 };
 
 export default initialState;

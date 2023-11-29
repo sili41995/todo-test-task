@@ -1,63 +1,49 @@
+import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
-import {
-  AiFillLock,
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-} from 'react-icons/ai';
-import { useEffect, useState } from 'react';
+import { AiFillLock } from 'react-icons/ai';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
-import { Message, Title, Image, Form, Button } from './LoginForm.styled';
-import defaultAvatar from 'images/default-signin-avatar.png';
+import { Form, Button, Message, Title } from './RegisterForm.styled';
 import { toasts } from 'utils';
+import AuthFormMessage from 'components/AuthFormMessage';
 import Input from 'components/Input';
+import { registerUser } from 'redux/auth/operations';
 import { selectIsLoading } from 'redux/auth/selectors';
-import { loginUser } from 'redux/auth/operations';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { ICredentials } from 'types/types';
 import { PagesPath } from 'constants/pagesPath';
 import { FormType } from 'constants/formType';
-import { IconBtnType } from 'constants/iconBtnType';
-import AuthFormMessage from 'components/AuthFormMessage';
+import { useEffect } from 'react';
 
-const LoginForm = () => {
-  const [credentials, setCredentials] = useState<ICredentials | null>(null);
-  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+const RegisterForm = () => {
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
-    watch,
   } = useForm<ICredentials>();
-  const watchPassword = watch('password');
-  const pageLink = `/${PagesPath.registerPath}`;
+  const pageLink = `/${PagesPath.loginPath}`;
 
-  const toggleIsShowPassword = () => {
-    setIsShowPassword((prevState) => !prevState);
+  const onSubmit: SubmitHandler<ICredentials> = (data) => {
+    const credentials = {
+      avatar:
+        'https://www.sailmet.com/Content/Images/news/202111/a2b1176f1dda45cb9000980a8edced6a.jpg',
+      ...data,
+    };
+    dispatch(registerUser(credentials))
+      .unwrap()
+      .then(() => {
+        toasts.successToast('Hello, my friend!');
+      })
+      .catch((error) => {
+        toasts.errorToast(error);
+      });
   };
 
   useEffect(() => {
-    if (credentials) {
-      const promise = dispatch(loginUser(credentials));
-      promise
-        .unwrap()
-        .then(() => {
-          toasts.successToast('Hello, my friend!');
-        })
-        .catch((error) => {
-          toasts.errorToast(error);
-        });
-
-      return () => {
-        promise.abort();
-      };
-    }
-  }, [credentials, dispatch]);
-
-  useEffect(() => {
     if (isSubmitting) {
+      errors.name && toasts.errorToast('Username is required');
       errors.email && toasts.errorToast('Email is required');
       errors.password &&
         toasts.errorToast(
@@ -66,24 +52,28 @@ const LoginForm = () => {
             : 'Password minimum length is 7 characters'
         );
     }
-  }, [isSubmitting, errors]);
-
-  const onSubmit: SubmitHandler<ICredentials> = (data) => {
-    setCredentials(data);
-  };
+  }, [errors, isSubmitting]);
 
   return (
     <>
-      <Title>log in</Title>
+      <Title>sign up</Title>
       <Message>Welcome to Phonebook!</Message>
-      <Image src={defaultAvatar} alt='user avatar' />
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          settings={{ ...register('name', { required: true }) }}
+          type='text'
+          placeholder='Username'
+          inputType={FormType.authForm}
+          autoFocus
+          inputWrap
+          fieldIcon={<FaUser />}
+          fieldIconSize={20}
+        />
         <Input
           settings={{ ...register('email', { required: true }) }}
           type='email'
           placeholder='Email'
           inputType={FormType.authForm}
-          autoFocus
           inputWrap
           fieldIcon={<MdEmail />}
           fieldIconSize={20}
@@ -92,30 +82,24 @@ const LoginForm = () => {
           settings={{
             ...register('password', { required: true, minLength: 7 }),
           }}
-          type={isShowPassword ? 'text' : 'password'}
+          type='password'
           placeholder='Password'
           inputType={FormType.authForm}
-          children={
-            watchPassword &&
-            (isShowPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />)
-          }
-          btnType={IconBtnType.toggleShowPassword}
-          action={toggleIsShowPassword}
           inputWrap
           fieldIcon={<AiFillLock />}
           fieldIconSize={20}
         />
         <AuthFormMessage
-          action={'Sign up'}
+          action={'Log in'}
           pageLink={pageLink}
-          message={"if you don't have an account yet"}
+          message={'if you have an account'}
         />
         <Button disabled={isLoading} type='submit'>
-          Log in
+          Enlist
         </Button>
       </Form>
     </>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
