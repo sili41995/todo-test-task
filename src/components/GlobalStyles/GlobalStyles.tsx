@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { Global, css } from '@emotion/react';
 import 'modern-normalize';
 import { juaRegular, interMedium, interSemiBold } from 'fonts';
 
-const GlobalStyles = () => (
+const GlobalStyles: FC = () => (
   <Global
     styles={css`
       @font-face {

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, FC } from 'react';
 import PaginationBar from 'components/PaginationBar';
 import TodosList from 'components/TodosList';
 import { IProps } from './TodosContainer.types';
@@ -11,7 +11,7 @@ import { Container } from './TodosContainer.styled';
 
 const { FILTER_SP_KEY, SORT_SP_KEY, PAGE_SP_KEY } = SearchParamsKeys;
 
-const TodosContainer = ({ quantity, step }: IProps) => {
+const TodosContainer: FC<IProps> = ({ quantity, step }) => {
   const todos = useAppSelector(selectTodos);
   const [searchParams] = useSearchParams();
   const filter = searchParams.get(FILTER_SP_KEY) ?? '';

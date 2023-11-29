@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { StyledLink } from './GoBackLink.styled';
 import { PagesPath } from 'constants/pagesPath';
 
-const GoBackLink = () => {
+const GoBackLink: FC = () => {
   const { search } = useLocation();
 
   return (

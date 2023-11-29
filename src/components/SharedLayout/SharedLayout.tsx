@@ -1,11 +1,11 @@
-import { Suspense } from 'react';
+import { Suspense, FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Container, Header, Main, Section } from './SharedLayout.styled';
 import Navigation from 'components/Navigation';
 import Loader from 'components/Loader';
 import { setAuthPageBackgroundColor, isTodosPage } from 'utils';
 
-const SharedLayout = () => {
+const SharedLayout: FC = () => {
   const { pathname } = useLocation();
 
   setAuthPageBackgroundColor(pathname);

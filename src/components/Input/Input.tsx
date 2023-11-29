@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { Container, StyledInput } from './Input.styled';
 import IconButton from 'components/IconButton';
 import { IProps } from './Input.types';
 
-const Input = ({
+const Input: FC<IProps> = ({
   fieldIcon,
   settings,
   inputWrap,
@@ -11,7 +12,7 @@ const Input = ({
   action,
   right = 0,
   ...props
-}: IProps) => {
+}) => {
   const input = <StyledInput {...settings} {...props} />;
   const inputWithWrap = (
     <Container {...props}>

@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { IProps } from './LinkWithQuery.types';
 
-const LinkWithQuery = ({ children, to, ...props }: IProps) => {
+const LinkWithQuery: FC<IProps> = ({ children, to, ...props }) => {
   const { search } = useLocation();
   const path = to + search;
 

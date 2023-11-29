@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { SlLogout } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,7 +14,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { selectTodos } from 'redux/todos/selectors';
 import { logout } from 'redux/auth/authSlice';
 
-const PrivateLinks = () => {
+const PrivateLinks: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { IProps } from './PaginationBar.types';
 import { getPageNumbers, getPaginationBarSettings } from 'utils';
 import { useSearchParams } from 'react-router-dom';
@@ -6,7 +7,7 @@ import { Button, Item, List, TemplateItem } from './PaginationBar.styled';
 
 const { PAGE_SP_KEY } = SearchParamsKeys;
 
-const PaginationBar = ({ todosQuantity, quantity, step = 1 }: IProps) => {
+const PaginationBar: FC<IProps> = ({ todosQuantity, quantity, step = 1 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageQuantity = Math.round(todosQuantity / quantity);
   const pageNumbers = getPageNumbers(pageQuantity);
@@ -55,7 +56,6 @@ const PaginationBar = ({ todosQuantity, quantity, step = 1 }: IProps) => {
           </Button>
         </Item>
       )}
-
       {isShowPrevTemplateBtn && (
         <TemplateItem>
           <Button disabled>...</Button>

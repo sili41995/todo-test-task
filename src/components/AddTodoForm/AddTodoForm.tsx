@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { GiCheckMark } from 'react-icons/gi';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import TodoModalForm from 'components/TodoModalForm';
 import GoBackLink from 'components/GoBackLink';
 
-const AddTodoForm = () => {
+const AddTodoForm: FC = () => {
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const {

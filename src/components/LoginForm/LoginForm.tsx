@@ -1,10 +1,10 @@
+import { useEffect, useState, FC } from 'react';
 import { MdEmail } from 'react-icons/md';
 import {
   AiFillLock,
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 import { Message, Title, Image, Form, Button } from './LoginForm.styled';
@@ -20,7 +20,7 @@ import { FormType } from 'constants/formType';
 import { IconBtnType } from 'constants/iconBtnType';
 import AuthFormMessage from 'components/AuthFormMessage';
 
-const LoginForm = () => {
+const LoginForm: FC = () => {
   const [credentials, setCredentials] = useState<ICredentials | null>(null);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const isLoading = useAppSelector(selectIsLoading);

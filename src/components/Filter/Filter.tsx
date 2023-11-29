@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { useSearchParams } from 'react-router-dom';
 import { BsSortAlphaDown } from 'react-icons/bs';
@@ -16,7 +17,7 @@ import { IconBtnType } from 'constants/iconBtnType';
 const { FILTER_SP_KEY, SORT_SP_KEY, PAGE_SP_KEY } = SearchParamsKeys;
 const { DESC_SORT_TYPE } = SortTypes;
 
-const Filter = () => {
+const Filter: FC = () => {
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get(FILTER_SP_KEY) ?? '';

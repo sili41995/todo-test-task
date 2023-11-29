@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import TodosListItem from 'components/TodosListItem';
 import DefaultMessage from 'components/DefaultMessage';
 import { Container, List } from './TodosList.styled';
 import { IProps } from './TodosList.types';
 
-const TodosList = ({ visibleTodos }: IProps) => {
+const TodosList: FC<IProps> = ({ visibleTodos }) => {
   return (
     <Container>
       {!!visibleTodos.length ? (

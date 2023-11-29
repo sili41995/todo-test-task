@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { List, ListItem, NavContainer } from './Navigation.styled';
 import PublicLinks from 'components/PublicLinks';
@@ -5,7 +6,7 @@ import { PagesPath } from 'constants/pagesPath';
 import { isTodosPage } from 'utils';
 import PrivateLinks from 'components/PrivateLinks';
 
-const Navigation = () => {
+const Navigation: FC = () => {
   const { pathname } = useLocation();
   const TodosPagePath = `/${PagesPath.todosPath}`;
   const aboutPagePath = `/${PagesPath.aboutPath}`;

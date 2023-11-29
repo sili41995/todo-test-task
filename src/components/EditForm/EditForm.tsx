@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { GiCheckMark } from 'react-icons/gi';
@@ -20,7 +20,7 @@ import { IconBtnType } from 'constants/iconBtnType';
 import TodoModalForm from 'components/TodoModalForm';
 import GoBackLink from 'components/GoBackLink';
 
-const EditForm = () => {
+const EditForm: FC = () => {
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const id = useParams()[PagesPath.dynamicParam];

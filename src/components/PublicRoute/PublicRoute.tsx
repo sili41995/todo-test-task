@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useEffect, useRef } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { toasts } from 'utils';
@@ -6,7 +7,7 @@ import { PagesPath } from 'constants/pagesPath';
 import { useAppSelector } from 'hooks/redux';
 import { IProps } from './PublicRoute.types';
 
-export const PublicRoute = ({ element, restricted = false }: IProps) => {
+export const PublicRoute: FC<IProps> = ({ element, restricted = false }) => {
   const isFirstRenderRef = useRef<boolean>(true);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const location = useLocation();

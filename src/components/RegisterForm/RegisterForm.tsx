@@ -1,3 +1,4 @@
+import { useEffect, FC } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { AiFillLock } from 'react-icons/ai';
@@ -13,10 +14,9 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { ICredentials } from 'types/types';
 import { PagesPath } from 'constants/pagesPath';
 import { FormType } from 'constants/formType';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = () => {
+const RegisterForm: FC = () => {
   const navigate = useNavigate();
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();

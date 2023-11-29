@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { HiOutlinePhone } from 'react-icons/hi';
 import { SlLocationPin } from 'react-icons/sl';
@@ -16,7 +17,7 @@ import { getUserAvatar } from 'utils';
 import { useAppSelector } from 'hooks/redux';
 import { selectUser } from 'redux/auth/selectors';
 
-const UserProfile = () => {
+const UserProfile: FC = () => {
   const { name, avatar, lastName, email, dateOfBirth, phoneNumber, location } =
     useAppSelector(selectUser);
   const userAvatar = getUserAvatar(avatar);

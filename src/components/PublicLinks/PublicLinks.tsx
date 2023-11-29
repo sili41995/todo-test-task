@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { List, ListItem } from './PublicLinks.styled';
 import { PagesPath } from 'constants/pagesPath';
 
-const PublicLinks = () => {
+const PublicLinks: FC = () => {
   const registerPagePath = `/${PagesPath.registerPath}`;
   const loginPagePath = `/${PagesPath.loginPath}`;
 

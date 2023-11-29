@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import IconButton from 'components/IconButton';
 import LinkWithQuery from 'components/LinkWithQuery/LinkWithQuery';
@@ -8,7 +9,7 @@ import { IProps } from './TodosListItem.types';
 import { IconBtnType } from 'constants/iconBtnType';
 import { useDeleteTodo } from 'hooks';
 
-const TodosListItem = ({ todo }: IProps) => {
+const TodosListItem: FC<IProps> = ({ todo }) => {
   const { title, id, completed } = todo;
   const isLoading = useAppSelector(selectIsLoading);
   const deleteTodo = useDeleteTodo();
