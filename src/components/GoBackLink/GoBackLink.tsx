@@ -1,8 +1,13 @@
+import { useLocation } from 'react-router-dom';
 import { StyledLink } from './GoBackLink.styled';
-import { IProps } from './GoBackLink.types';
+import { PagesPath } from 'constants/pagesPath';
 
-const GoBackLink = ({ path }: IProps) => {
-  return <StyledLink to={path}>Cancel</StyledLink>;
+const GoBackLink = () => {
+  const { search } = useLocation();
+
+  return (
+    <StyledLink to={`/${PagesPath.todosPath}${search}`}>Cancel</StyledLink>
+  );
 };
 
 export default GoBackLink;

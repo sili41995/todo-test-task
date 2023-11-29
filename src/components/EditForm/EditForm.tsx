@@ -18,10 +18,9 @@ import { BtnType } from 'constants/btnType';
 import { PagesPath } from 'constants/pagesPath';
 import { IconBtnType } from 'constants/iconBtnType';
 import TodoModalForm from 'components/TodoModalForm';
-import { IProps } from './EditForm.types';
 import GoBackLink from 'components/GoBackLink';
 
-const EditForm = ({ goBackLink }: IProps) => {
+const EditForm = () => {
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const id = useParams()[PagesPath.dynamicParam];
@@ -96,7 +95,7 @@ const EditForm = ({ goBackLink }: IProps) => {
           >
             <GiCheckMark />
           </IconButton>
-          <GoBackLink path={goBackLink} />
+          <GoBackLink />
         </Buttons>
       </Form>
     </TodoModalForm>

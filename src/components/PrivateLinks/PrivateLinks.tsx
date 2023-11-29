@@ -29,7 +29,7 @@ const PrivateLinks = () => {
   return (
     <LinkContainer>
       {isTodosPage(location.pathname) && !!todos.length && <Filter />}
-      <LinkWithQuery to={path} state={{ from: location }}>
+      <LinkWithQuery to={path}>
         <IconContainer>
           <GrAddCircle />
         </IconContainer>

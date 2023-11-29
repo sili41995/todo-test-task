@@ -7,10 +7,8 @@ import { useAppSelector } from 'hooks/redux';
 import { IProps } from './TodosListItem.types';
 import { IconBtnType } from 'constants/iconBtnType';
 import { useDeleteTodo } from 'hooks';
-import { useLocation } from 'react-router-dom';
 
 const TodosListItem = ({ todo }: IProps) => {
-  const location = useLocation();
   const { title, id, completed } = todo;
   const isLoading = useAppSelector(selectIsLoading);
   const deleteTodo = useDeleteTodo();
@@ -23,7 +21,7 @@ const TodosListItem = ({ todo }: IProps) => {
 
   return (
     <Item>
-      <LinkWithQuery to={`${id}`} state={{ from: location }}>
+      <LinkWithQuery to={`${id}`}>
         <Title completed={completed}>{title}</Title>
       </LinkWithQuery>
       <IconButton

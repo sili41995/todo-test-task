@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
-import { useLocation } from 'react-router-dom';
 import { GiCheckMark } from 'react-icons/gi';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +13,6 @@ import { IconBtnType } from 'constants/iconBtnType';
 import { BtnType } from 'constants/btnType';
 import { ITodo } from 'types/types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { PagesPath } from 'constants/pagesPath';
 import TodoModalForm from 'components/TodoModalForm';
 import GoBackLink from 'components/GoBackLink';
 
@@ -27,11 +25,9 @@ const AddTodoForm = () => {
     handleSubmit,
     reset,
   } = useForm<ITodo>();
-  const location = useLocation();
-  const goBackLink = location.state?.from || PagesPath.homePath;
 
   useEffect(() => {
-      errors.title && toasts.errorToast('Title is required');
+    errors.title && toasts.errorToast('Title is required');
   }, [errors, isSubmitting]);
 
   const handleFormSubmit: SubmitHandler<ITodo> = (data) => {
@@ -70,7 +66,7 @@ const AddTodoForm = () => {
           >
             <GiCheckMark />
           </IconButton>
-          <GoBackLink path={goBackLink} />
+          <GoBackLink />
         </Buttons>
       </Form>
     </TodoModalForm>
