@@ -3,6 +3,7 @@ import { IconBtnType } from 'constants/iconBtnType';
 import { FormType } from 'constants/formType';
 
 export interface IProps {
+  isCheckedIcon?: ReactNode;
   checked?: boolean;
   value?: string;
   defaultValue?: string;
@@ -25,4 +26,6 @@ export interface IProps {
 export interface IStyledProps {
   fieldIconSize?: number;
   inputType?: FormType;
+  checked?: boolean;
+  isCheckedIcon?: ReactNode;
 }

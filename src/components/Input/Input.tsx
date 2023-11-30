@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { Container, StyledInput } from './Input.styled';
+import { Container, StyledInput, Label } from './Input.styled';
 import IconButton from 'components/IconButton';
 import { IProps } from './Input.types';
 
 const Input: FC<IProps> = ({
+  isCheckedIcon,
   fieldIcon,
   settings,
   inputWrap,
@@ -13,7 +14,23 @@ const Input: FC<IProps> = ({
   right = 0,
   ...props
 }) => {
-  const input = <StyledInput {...settings} {...props} />;
+  const isCheckBox = props.type === 'checkbox';
+  const input = (
+    <StyledInput
+      {...settings}
+      {...props}
+      className={isCheckBox ? 'isHidden' : ''}
+    />
+  );
+
+  if (isCheckBox) {
+    return (
+      <Label checked={props.checked} inputType={props.inputType}>
+        {isCheckedIcon}
+        {input}
+      </Label>
+    );
+  }
   const inputWithWrap = (
     <Container {...props}>
       {input}

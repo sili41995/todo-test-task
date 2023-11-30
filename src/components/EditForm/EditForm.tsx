@@ -69,6 +69,7 @@ const EditForm: FC = () => {
           <Input
             settings={{ ...register('completed') }}
             checked={checked}
+            isCheckedIcon={<GiCheckMark />}
             type='checkbox'
             onChange={onCheckboxChange}
           />

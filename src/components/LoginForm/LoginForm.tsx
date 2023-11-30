@@ -38,7 +38,7 @@ const LoginForm: FC = () => {
   } = useForm<ICredentials>();
   const watchPassword = watch('password');
   const registerPageLink = `/${PagesPath.registerPath}`;
-  const greetingMessage = `${greetings}${name && ', ' + name}!`;
+  const greetingMessage = `${greetings}${name ? `, ${name}` : ''}!`;
   const passwordBtnIcon = isShowPassword ? (
     <AiOutlineEyeInvisible />
   ) : (

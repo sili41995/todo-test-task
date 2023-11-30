@@ -28,8 +28,7 @@ export const Container = styled.div`
 
 export const StyledInput = styled.input`
   flex-shrink: 0;
-  width: ${({ type, inputType }) =>
-    type === 'checkbox' ? setInputHeight(inputType) : '100%'};
+  width: 100%;
   max-width: ${({ inputType }: IStyledProps) => setInputMaxWidth(inputType)};
   height: ${({ inputType }) => setInputHeight(inputType)};
   background-color: transparent;
@@ -51,5 +50,35 @@ export const StyledInput = styled.input`
   &:focus + svg {
     transition: color ${({ theme }) => theme.transitionDurationAndFunc};
     color: ${({ theme }) => theme.colors.primaryColor};
+  }
+`;
+
+export const Label = styled.label`
+  display: flex;
+  & svg {
+    width: ${({ inputType }: IStyledProps) => setInputHeight(inputType)};
+    height: 100%;
+    padding: ${({ theme }) => theme.spacing(2)};
+    border: 1px solid;
+    border-color: ${({ inputType, checked }) =>
+      checked ? 'transparent' : setInputBorderColor(inputType)};
+    border-radius: ${({ inputType }) => setInputBorderRadius(inputType)}px;
+    background-color: ${({ theme, checked }) =>
+      checked ? theme.colors.otherColor : 'transparent'};
+    color: ${({ theme, checked }) =>
+      checked ? theme.colors.whiteColor : 'transparent'};
+    cursor: pointer;
+    transition: box-shadow ${({ theme }) => theme.transitionDurationAndFunc},
+      background-color ${({ theme }) => theme.transitionDurationAndFunc},
+      color ${({ theme }) => theme.transitionDurationAndFunc},
+      border-color ${({ theme }) => theme.transitionDurationAndFunc};
+    &:hover,
+    &:focus {
+      box-shadow: ${({ theme }) => theme.shadows.primaryShadow};
+    }
+  }
+  & .isHidden {
+    position: fixed;
+    transform: scale(0);
   }
 `;

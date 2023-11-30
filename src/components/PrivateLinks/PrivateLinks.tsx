@@ -21,7 +21,7 @@ const PrivateLinks: FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const todos = useAppSelector(selectTodos);
-  const isShouldRenderFilter = isTodosPage(pathname) && todos.length;
+  const isShouldRenderFilter = isTodosPage(pathname) && Boolean(todos.length);
 
   const onLogoutBtnClick = () => {
     dispatch(logout());
