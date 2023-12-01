@@ -21,7 +21,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, { payload }) => ({
-        ...state,
+        ...initialState.auth,
         isLoading: false,
       }))
       .addCase(loginUser.fulfilled, (state, { payload }) => ({
@@ -38,6 +38,7 @@ const authSlice = createSlice({
         ...state,
         isLoading: false,
         user: {
+          id: payload.id,
           name: payload.name,
           email: payload.email,
           avatar: payload.avatar,

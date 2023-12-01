@@ -27,5 +27,4 @@ export interface IStyledProps {
   fieldIconSize?: number;
   inputType?: FormType;
   checked?: boolean;
-  isCheckedIcon?: ReactNode;
 }

@@ -73,6 +73,7 @@ export const updateTodo = createAsyncThunk<
   async (data, { rejectWithValue }: { rejectWithValue: Function }) => {
     try {
       const response = await todosServiceApi.updateTodo(data);
+      console.log(response);
       if (!response.id) {
         throw Error('Todo update failed');
       }

@@ -16,9 +16,11 @@ import { BtnType } from 'constants/btnType';
 import { ITodo } from 'types/types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { Messages } from 'constants/messages';
+import { selectUser } from 'redux/auth/selectors';
 
 const AddTodoForm: FC = () => {
   const todos = useAppSelector(selectTodos);
+  const user = useAppSelector(selectUser);
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
   const {
@@ -34,7 +36,7 @@ const AddTodoForm: FC = () => {
 
   const handleFormSubmit: SubmitHandler<ITodo> = (data) => {
     if (getIsTodo({ todos, newTodo: data })) return;
-    const todo = { ...data, completed: false, userId: 10 };
+    const todo = { ...data, completed: false, userId: user.id as number };
 
     dispatch(addTodo(todo))
       .unwrap()

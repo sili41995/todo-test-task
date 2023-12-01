@@ -5,7 +5,7 @@ import { AiFillLock } from 'react-icons/ai';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 import { Form, Button, Message, Title } from './RegisterForm.styled';
-import { toasts } from 'utils';
+import { getRandomAvatar, toasts } from 'utils';
 import AuthFormMessage from 'components/AuthFormMessage';
 import Input from 'components/Input';
 import { registerUser } from 'redux/auth/operations';
@@ -30,14 +30,14 @@ const RegisterForm: FC = () => {
     handleSubmit,
   } = useForm<ICredentials>();
   const loginPageLink = `/${PagesPath.loginPath}`;
-  const defaultAvatar =
-    'https://www.sailmet.com/Content/Images/news/202111/a2b1176f1dda45cb9000980a8edced6a.jpg';
+  const avatar = getRandomAvatar();
 
   const onSubmit: SubmitHandler<ICredentials> = (data) => {
     const credentials = {
-      avatar: defaultAvatar,
+      avatar,
       ...data,
     };
+    console.log(credentials);
     dispatch(registerUser(credentials))
       .unwrap()
       .then(() => {

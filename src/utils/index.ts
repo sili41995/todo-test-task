@@ -24,3 +24,4 @@ export { default as setBtnDisplayProp } from 'utils/setBtnDisplayProp';
 export { default as getVisibleTodos } from 'utils/getVisibleTodos';
 export { default as getPaginationBarSettings } from 'utils/getPaginationBarSettings';
 export { default as getIsTodo } from 'utils/getIsTodo';
+export { default as getRandomAvatar } from 'utils/getRandomAvatar';
