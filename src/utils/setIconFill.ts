@@ -6,17 +6,11 @@ function setIconFill(btnType: IconBtnType): string {
     case IconBtnType.delete:
       return theme.colors.redIconColor;
 
-    case IconBtnType.edit:
-      return theme.colors.blueIconColor;
-
     case IconBtnType.logout:
       return theme.colors.redIconColor;
 
     case IconBtnType.accept:
       return theme.colors.greenIconColor;
-
-    case IconBtnType.cancel:
-      return theme.colors.redIconColor;
 
     case IconBtnType.deleteTransparent:
       return theme.colors.redIconColor;

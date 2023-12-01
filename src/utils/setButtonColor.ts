@@ -6,17 +6,11 @@ function setButtonColor(btnType: IconBtnType): string {
     case IconBtnType.delete:
       return theme.colors.redBtnColor;
 
-    case IconBtnType.edit:
-      return theme.colors.blueBtnColor;
-
     case IconBtnType.logout:
       return theme.colors.redBtnColor;
 
     case IconBtnType.accept:
       return theme.colors.greenBtnColor;
-
-    case IconBtnType.cancel:
-      return theme.colors.redBtnColor;
 
     case IconBtnType.deleteTransparent:
       return 'transparent';

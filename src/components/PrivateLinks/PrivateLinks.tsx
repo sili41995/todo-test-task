@@ -14,8 +14,6 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { selectTodos } from 'redux/todos/selectors';
 import { logout } from 'redux/auth/authSlice';
 
-const { addNewTodoPath, homePath } = PagesPath;
-
 const PrivateLinks: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -26,13 +24,13 @@ const PrivateLinks: FC = () => {
   const onLogoutBtnClick = () => {
     dispatch(logout());
     toasts.successToast('Goodbye!');
-    navigate(homePath);
+    navigate(PagesPath.homePath);
   };
 
   return (
     <LinkContainer>
       {isShouldRenderFilter && <Filter />}
-      <LinkWithQuery to={addNewTodoPath}>
+      <LinkWithQuery to={PagesPath.addNewTodoPath}>
         <IconContainer>
           <GrAddCircle />
         </IconContainer>
