@@ -4,8 +4,8 @@ const userAvatars: string[] = [
   'https://koshka.top/uploads/posts/2021-12/thumbs/1640316382_1-koshka-top-p-narisovannikh-kotikov-1.jpg',
   'https://kartinki.pibig.info/uploads/posts/2023-04/thumbs/1682016583_kartinki-pibig-info-p-kartinka-kotik-za-kompyuterom-arti-instagr-1.jpg',
   'https://stocking.com.ua/image/catalog/00411-1/Dizajnbeznazvaniya(5).png',
-  'https://w7.pngwing.com/pngs/390/407/png-transparent-actor-chaplin-comedy-man-avatars-xmas-giveaway-icon-thumbnail.png',
-  'https://w7.pngwing.com/pngs/613/564/png-transparent-afro-avatar-male-man-avatars-xmas-giveaway-icon-thumbnail.png',
+  'https://cs14.pikabu.ru/post_img/2023/02/13/8/1676295806139337963.jpg',
+  'https://storage.bankoboev.ru/avatars/avatar18228.jpg',
 ];
 
 export default userAvatars;
