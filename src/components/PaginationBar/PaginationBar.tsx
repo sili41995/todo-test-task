@@ -9,7 +9,7 @@ const { PAGE_SP_KEY } = SearchParamsKeys;
 
 const PaginationBar: FC<IProps> = ({ todosQuantity, quantity, step = 1 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const pageQuantity = Math.round(todosQuantity / quantity);
+  const pageQuantity = Math.ceil(todosQuantity / quantity);
   const pageNumbers = getPageNumbers(pageQuantity);
   const currentPage = Number(searchParams.get(PAGE_SP_KEY) ?? 1);
   const {
